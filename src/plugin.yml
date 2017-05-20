@@ -1,8 +1,7 @@
 name: ChestTerminal
 version: 1.0
 author: mrCookieSlime
-website: http://mrcookieslime.github.io/
-depend: [Slimefun]
-softdepend: [CS-CoreLib]
+website: http://TheBusyBiscuit.github.io/
+depend: [CS-CoreLib, Slimefun]
 
 main: me.mrCookieSlime.ChestTerminal.ChestTerminal
