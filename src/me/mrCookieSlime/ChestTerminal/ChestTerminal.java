@@ -59,7 +59,7 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 
 		new SlimefunItem(category, quartz, "MILKY_QUARTZ", new RecipeType(drill), new ItemStack[0]).register();
 		
-		new AccessTerminal(category, new CustomItem(SlimefunItems.CHEST_TERMINAL, "§3CT Illuminated Panel", "§7Crafting Component"), "CT_PANEL", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new SlimefunItem(category, new CustomItem(SlimefunItems.CHEST_TERMINAL, "§3CT Illuminated Panel", "§7Crafting Component"), "CT_PANEL", RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {quartz, SlimefunItems.BLISTERING_INGOT_3, quartz, SlimefunItems.REDSTONE_ALLOY, SlimefunItems.POWER_CRYSTAL, SlimefunItems.REDSTONE_ALLOY, quartz, SlimefunItems.BLISTERING_INGOT_3, quartz})
 		.register();
 		
