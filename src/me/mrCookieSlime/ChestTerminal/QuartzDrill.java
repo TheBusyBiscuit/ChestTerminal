@@ -14,6 +14,7 @@ import org.bukkit.material.MaterialData;
 import me.mrCookieSlime.CSCoreLibPlugin.CSCoreLib;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
+import me.mrCookieSlime.ChestTerminal.util.config;
 import me.mrCookieSlime.Slimefun.GEO.OreGenSystem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
@@ -130,7 +131,7 @@ public abstract class QuartzDrill extends AContainer {
 
 	@Override
 	public String getInventoryTitle() {
-		return "ง3Quartz Drill";
+		return config.MilkyQuartzName.replace("&", "ยง");
 	}
 
 	@Override
