@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -17,6 +18,7 @@ import me.mrCookieSlime.CSCoreLibPlugin.CSCoreLib;
 import me.mrCookieSlime.CSCoreLibPlugin.events.ItemUseEvent;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Player.PlayerInventory;
+import me.mrCookieSlime.ChestTerminal.util.config;
 import me.mrCookieSlime.Slimefun.GEO.OreGenResource;
 import me.mrCookieSlime.Slimefun.GEO.OreGenSystem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
@@ -30,18 +32,23 @@ import me.mrCookieSlime.Slimefun.api.energy.ItemEnergy;
 import me.mrCookieSlime.Slimefun.api.item_transport.CargoNet;
 
 public class ChestTerminal extends JavaPlugin implements Listener {
-
-	public static final ItemStack quartz = new CustomItem(new ItemStack(Material.QUARTZ), "§rMilky Quartz");
+	public static FileConfiguration cfg;
+	
+	public static ItemStack quartz;
 	
 	@Override
 	public void onEnable() {
-		Category category = new Category(new CustomItem(SlimefunItems.CHEST_TERMINAL, "§5Chest Terminal", "", "§a> Click to open"));
+		saveDefaultConfig();
+		cfg = getConfig();
+		quartz  = new CustomItem(new ItemStack(Material.QUARTZ), config.MilkyQuartzName.replace("&", "Â§"));
 		
-		final ItemStack wireless_terminal16 = new CustomItem(new ItemStack(Material.ITEM_FRAME), "§3CT Wireless Access Terminal §b(16)", "§8\u21E8 §7Linked to: §cNowhere", "§8\u21E8 §7Range: §e16 Blocks", "§c§o§8\u21E8 §e\u26A1 §70 / 10 J", "", "§7If this Block is linked to an Access Terminal", "§7it will be able to remotely access that Terminal", "", "&7&eRight Click on an Access Terminal §7to link", "&7&eRight Click&7 to open the linked Terminal");
-		final ItemStack wireless_terminal64 = new CustomItem(new ItemStack(Material.ITEM_FRAME), "§3CT Wireless Access Terminal §b(64)", "§8\u21E8 §7Linked to: §cNowhere", "§8\u21E8 §7Range: §e64 Blocks", "§c§o§8\u21E8 §e\u26A1 §70 / 25 J", "", "§7If this Block is linked to an Access Terminal", "§7it will be able to remotely access that Terminal", "", "&7&eRight Click on an Access Terminal §7to link", "&7&eRight Click&7 to open the linked Terminal");
-		final ItemStack wireless_terminal128 = new CustomItem(new ItemStack(Material.ITEM_FRAME), "§3CT Wireless Access Terminal §b(128)", "§8\u21E8 §7Linked to: §cNowhere", "§8\u21E8 §7Range: §e128 Blocks", "§c§o§8\u21E8 §e\u26A1 §70 / 50 J", "", "§7If this Block is linked to an Access Terminal", "§7it will be able to remotely access that Terminal", "", "&7&eRight Click on an Access Terminal §7to link", "&7&eRight Click&7 to open the linked Terminal");
-		final ItemStack wireless_terminalT = new CustomItem(new ItemStack(Material.ITEM_FRAME), "§3CT Wireless Access Terminal §b(Transdimensional)", "§8\u21E8 §7Linked to: §cNowhere", "§8\u21E8 §7Range: §eUnlimited", "§c§o§8\u21E8 §e\u26A1 §70 / 50 J", "", "§7If this Block is linked to an Access Terminal", "§7it will be able to remotely access that Terminal", "", "&7&eRight Click on an Access Terminal §7to link", "&7&eRight Click&7 to open the linked Terminal");
-		final ItemStack drill = new CustomItem(new ItemStack(Material.IRON_BLOCK), "§3Quartz Drill", "§7Mines up Milky Quartz", "", "§c§l! §cMake sure to Geo-Scan the Chunk first");
+		Category category = new Category(new CustomItem(SlimefunItems.CHEST_TERMINAL, "Â§5Chest Terminal", "", config.Click_To_Open.replace("&", "Â§")));
+		
+		final ItemStack wt16 = new CustomItem(config.wt16());
+		final ItemStack wt64 = new CustomItem(config.wt64());
+		final ItemStack wt128 = new CustomItem(config.wt128());
+		final ItemStack wtT = new CustomItem(config.wtT());
+		final ItemStack drill = new CustomItem(config.qd());
 		
 		new QuartzDrill(category, drill, "QUARTZ_DRILL", RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {null, SlimefunItems.POWER_CRYSTAL, null, SlimefunItems.PLASTIC_SHEET, SlimefunItems.OIL_PUMP, SlimefunItems.PLASTIC_SHEET, SlimefunItems.COBALT_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.COBALT_INGOT}) {
@@ -56,10 +63,10 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 				return 60;
 			}
 		}.registerChargeableBlock(512);
-
+		
 		new SlimefunItem(category, quartz, "MILKY_QUARTZ", new RecipeType(drill), new ItemStack[0]).register();
 		
-		new SlimefunItem(category, new CustomItem(SlimefunItems.CHEST_TERMINAL, "§3CT Illuminated Panel", "§7Crafting Component"), "CT_PANEL", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new SlimefunItem(category, new CustomItem(SlimefunItems.CHEST_TERMINAL, config.Illuminated_Panel.replace("&", "Â§"), config.Crafting_Component.replace("&", "Â§")), "CT_PANEL", RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {quartz, SlimefunItems.BLISTERING_INGOT_3, quartz, SlimefunItems.REDSTONE_ALLOY, SlimefunItems.POWER_CRYSTAL, SlimefunItems.REDSTONE_ALLOY, quartz, SlimefunItems.BLISTERING_INGOT_3, quartz})
 		.register();
 		
@@ -75,21 +82,21 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 		new ItemStack[] {null, SlimefunItems.DAMASCUS_STEEL_INGOT, null, SlimefunItems.ALUMINUM_BRONZE_INGOT, SlimefunItem.getItem("CT_IMPORT_BUS"), SlimefunItems.ALUMINUM_BRONZE_INGOT, SlimefunItems.PLASTIC_SHEET, SlimefunItems.GOLD_10K, SlimefunItems.PLASTIC_SHEET})
 		.register();
 		
-		new SlimefunItem(category, wireless_terminal16, "CT_WIRELESS_ACCESS_TERMINAL_16", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new SlimefunItem(category, wt16, "CT_WIRELESS_ACCESS_TERMINAL_16", RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {quartz, SlimefunItems.GPS_TRANSMITTER, quartz, SlimefunItems.COBALT_INGOT, SlimefunItems.CHEST_TERMINAL, SlimefunItems.COBALT_INGOT, SlimefunItems.BATTERY, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.BATTERY})
 		.register(new ItemInteractionHandler() {
 			
 			@Override
 			public boolean onRightClick(ItemUseEvent e, Player p, ItemStack stack) {
-				if (SlimefunManager.isItemSimiliar(stack, wireless_terminal16, false)) {
+				if (SlimefunManager.isItemSimiliar(stack, wt16, false)) {
 					ItemMeta im = stack.getItemMeta();
 					List<String> lore = im.getLore();
 					if (lore.isEmpty()) return true;
 					
 					if (e.getClickedBlock() != null) {
 						if (BlockStorage.check(e.getClickedBlock(), "CHEST_TERMINAL")) {
-							lore.set(0, "§8\u21E8 §7Linked to: §8" + e.getClickedBlock().getWorld().getName() + " X: " + e.getClickedBlock().getX() + " Y: " + e.getClickedBlock().getY() + " Z: " + e.getClickedBlock().getZ());
-							p.sendMessage("§bLink established!");
+							lore.set(0, config.Linked_To_Coords.replace("&", "Â§").replace("{world}", e.getClickedBlock().getWorld().getName()).replace("{x}", e.getClickedBlock().getX() + "").replace("{y}", e.getClickedBlock().getY() + "").replace("{z}", e.getClickedBlock().getZ() + ""));
+							p.sendMessage(config.Link_Established.replace("&", "Â§"));
 							im.setLore(lore);
 							stack.setItemMeta(im);
 							p.getInventory().setItemInMainHand(stack);
@@ -105,21 +112,21 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 			}
 		});
 		
-		new SlimefunItem(category, wireless_terminal64, "CT_WIRELESS_ACCESS_TERMINAL_64", RecipeType.ENHANCED_CRAFTING_TABLE,
-		new ItemStack[] {quartz, SlimefunItems.GPS_TRANSMITTER, quartz, SlimefunItems.COBALT_INGOT, wireless_terminal16, SlimefunItems.COBALT_INGOT, SlimefunItems.BATTERY, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.BATTERY})
+		new SlimefunItem(category, wt64, "CT_WIRELESS_ACCESS_TERMINAL_64", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new ItemStack[] {quartz, SlimefunItems.GPS_TRANSMITTER, quartz, SlimefunItems.COBALT_INGOT, wt16, SlimefunItems.COBALT_INGOT, SlimefunItems.BATTERY, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.BATTERY})
 		.register(new ItemInteractionHandler() {
 			
 			@Override
 			public boolean onRightClick(ItemUseEvent e, Player p, ItemStack stack) {
-				if (SlimefunManager.isItemSimiliar(stack, wireless_terminal64, false)) {
+				if (SlimefunManager.isItemSimiliar(stack, wt64, false)) {
 					ItemMeta im = stack.getItemMeta();
 					List<String> lore = im.getLore();
 					if (lore.isEmpty()) return true;
 					
 					if (e.getClickedBlock() != null) {
 						if (BlockStorage.check(e.getClickedBlock(), "CHEST_TERMINAL")) {
-							lore.set(0, "§8\u21E8 §7Linked to: §8" + e.getClickedBlock().getWorld().getName() + " X: " + e.getClickedBlock().getX() + " Y: " + e.getClickedBlock().getY() + " Z: " + e.getClickedBlock().getZ());
-							p.sendMessage("§bLink established!");
+							lore.set(0, config.Linked_To_Coords.replace("&", "Â§").replace("{world}", e.getClickedBlock().getWorld().getName()).replace("{x}", e.getClickedBlock().getX() + "").replace("{y}", e.getClickedBlock().getY() + "").replace("{z}", e.getClickedBlock().getZ() + ""));
+							p.sendMessage(config.Link_Established.replace("&", "Â§"));
 							im.setLore(lore);
 							stack.setItemMeta(im);
 							p.getInventory().setItemInMainHand(stack);
@@ -135,21 +142,21 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 			}
 		});
 		
-		new SlimefunItem(category, wireless_terminal128, "CT_WIRELESS_ACCESS_TERMINAL_128", RecipeType.ENHANCED_CRAFTING_TABLE,
-		new ItemStack[] {quartz, SlimefunItems.GPS_TRANSMITTER_2, quartz, SlimefunItems.COBALT_INGOT, wireless_terminal64, SlimefunItems.COBALT_INGOT, SlimefunItems.BATTERY, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.BATTERY})
+		new SlimefunItem(category, wt128, "CT_WIRELESS_ACCESS_TERMINAL_128", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new ItemStack[] {quartz, SlimefunItems.GPS_TRANSMITTER_2, quartz, SlimefunItems.COBALT_INGOT, wt64, SlimefunItems.COBALT_INGOT, SlimefunItems.BATTERY, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.BATTERY})
 		.register(new ItemInteractionHandler() {
 			
 			@Override
 			public boolean onRightClick(ItemUseEvent e, Player p, ItemStack stack) {
-				if (SlimefunManager.isItemSimiliar(stack, wireless_terminal128, false)) {
+				if (SlimefunManager.isItemSimiliar(stack, wt128, false)) {
 					ItemMeta im = stack.getItemMeta();
 					List<String> lore = im.getLore();
 					if (lore.isEmpty()) return true;
 					
 					if (e.getClickedBlock() != null) {
 						if (BlockStorage.check(e.getClickedBlock(), "CHEST_TERMINAL")) {
-							lore.set(0, "§8\u21E8 §7Linked to: §8" + e.getClickedBlock().getWorld().getName() + " X: " + e.getClickedBlock().getX() + " Y: " + e.getClickedBlock().getY() + " Z: " + e.getClickedBlock().getZ());
-							p.sendMessage("§bLink established!");
+							lore.set(0, config.Linked_To_Coords.replace("&", "Â§").replace("{world}", e.getClickedBlock().getWorld().getName()).replace("{x}", e.getClickedBlock().getX() + "").replace("{y}", e.getClickedBlock().getY() + "").replace("{z}", e.getClickedBlock().getZ() + ""));
+							p.sendMessage(config.Link_Established.replace("&", "Â§"));
 							im.setLore(lore);
 							stack.setItemMeta(im);
 							p.getInventory().setItemInMainHand(stack);
@@ -165,21 +172,21 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 			}
 		});
 		
-		new SlimefunItem(category, wireless_terminalT, "CT_WIRELESS_ACCESS_TERMINAL_TRANSDIMENSIONAL", RecipeType.ENHANCED_CRAFTING_TABLE,
-		new ItemStack[] {quartz, SlimefunItems.GPS_TRANSMITTER_4, quartz, SlimefunItems.COBALT_INGOT, wireless_terminal128, SlimefunItems.COBALT_INGOT, SlimefunItems.BATTERY, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.BATTERY})
+		new SlimefunItem(category, wtT, "CT_WIRELESS_ACCESS_TERMINAL_TRANSDIMENSIONAL", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new ItemStack[] {quartz, SlimefunItems.GPS_TRANSMITTER_4, quartz, SlimefunItems.COBALT_INGOT, wt128, SlimefunItems.COBALT_INGOT, SlimefunItems.BATTERY, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.BATTERY})
 		.register(new ItemInteractionHandler() {
 			
 			@Override
 			public boolean onRightClick(ItemUseEvent e, Player p, ItemStack stack) {
-				if (SlimefunManager.isItemSimiliar(stack, wireless_terminalT, false)) {
+				if (SlimefunManager.isItemSimiliar(stack, wtT, false)) {
 					ItemMeta im = stack.getItemMeta();
 					List<String> lore = im.getLore();
 					if (lore.isEmpty()) return true;
 					
 					if (e.getClickedBlock() != null) {
 						if (BlockStorage.check(e.getClickedBlock(), "CHEST_TERMINAL")) {
-							lore.set(0, "§8\u21E8 §7Linked to: §8" + e.getClickedBlock().getWorld().getName() + " X: " + e.getClickedBlock().getX() + " Y: " + e.getClickedBlock().getY() + " Z: " + e.getClickedBlock().getZ());
-							p.sendMessage("§bLink established!");
+							lore.set(0, config.Linked_To_Coords.replace("&", "Â§").replace("{world}", e.getClickedBlock().getWorld().getName()).replace("{x}", e.getClickedBlock().getX() + "").replace("{y}", e.getClickedBlock().getY() + "").replace("{z}", e.getClickedBlock().getZ() + ""));
+							p.sendMessage(config.Link_Established.replace("&", "Â§"));
 							im.setLore(lore);
 							stack.setItemMeta(im);
 							p.getInventory().setItemInMainHand(stack);
@@ -199,12 +206,12 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 			
 			@Override
 			public String getName() {
-				return "Milky Quartz";
+				return config.MilkyQuartzName.replace("&", "Â§");
 			}
 			
 			@Override
 			public String getMeasurementUnit() {
-				return "Unit(s)";
+				return config.Units.replace("&", "Â§");
 			}
 			
 			@Override
@@ -222,14 +229,14 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 	}
 
 	private void openRemoteTerminal(Player p, ItemStack stack, String loc, int range) {
-		if (loc.equals("§8\u21E8 §7Linked to: §cNowhere")) {
-			p.sendMessage("§4Failed §c- This Device has not been linked to a Chest Terminal!");
+		if (loc.equals(config.Linked_To_Nowhere.replace("&", "Â§"))) {
+			p.sendMessage(config.Device_Not_Linked.replace("&", "Â§"));
 			return;
 		}
-		loc = loc.replace("§8\u21E8 §7Linked to: §8", "");
+		loc = loc.replace(config.Linked_To.replace("&", "Â§"), "");
 		World world = Bukkit.getWorld(loc.split(" X: ")[0]);
 		if (world == null) {
-			p.sendMessage("§4Failed §c- The Chest Terminal that this Device has been linked to no longer exists!");
+			p.sendMessage(config.Device_No_Longer_Exist.replace("&", "Â§"));
 			return;
 		}
 		int x = Integer.parseInt(loc.split(" X: ")[1].split(" Y: ")[0]);
@@ -239,22 +246,22 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 		Block block = world.getBlockAt(x, y, z);
 		
 		if (!BlockStorage.check(block, "CHEST_TERMINAL")) {
-			p.sendMessage("§4Failed §c- The Chest Terminal that this Device has been linked to no longer exists!");
+			p.sendMessage(config.Device_No_Longer_Exist.replace("&", "Â§"));
 			return;
 		}
 		
 		float charge = ItemEnergy.getStoredEnergy(stack);
 		if (charge < 0.5F) {
-			p.sendMessage("§4Failed §c- You are out of Energy!");
+			p.sendMessage(config.Out_Of_Energy.replace("&", "Â§"));
 			return;
 		}
 
 		if (range > 0 && !world.getUID().equals(p.getWorld().getUID())) {
-			p.sendMessage("§4Failed §c- You are out of Range!");
+			p.sendMessage(config.Out_Of_Range.replace("&", "Â§"));
 			return;
 		}
 		if (range > 0 && block.getLocation().distance(p.getLocation()) > range) {
-			p.sendMessage("§4Failed §c- You are out of Range!");
+			p.sendMessage(config.Out_Of_Range.replace("&", "Â§"));
 			return;
 		}
 
