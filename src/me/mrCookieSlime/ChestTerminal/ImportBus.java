@@ -3,6 +3,7 @@ package me.mrCookieSlime.ChestTerminal;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
+import me.mrCookieSlime.ChestTerminal.util.config;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunBlockHandler;
@@ -26,19 +27,18 @@ public class ImportBus extends SlimefunItem {
 	public ImportBus(Category category, ItemStack item, String name, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, name, recipeType, recipe);
 		
-		new BlockMenuPreset(name, "§3CT Import Bus") {
+		new BlockMenuPreset(name, config.Import_Bus) {
 			
 			@Override
 			public void init() {
 				constructMenu(this);
 			}
-
-			@SuppressWarnings("deprecation")
+			
 			@Override
 			public void newInstance(final BlockMenu menu, final Block b) {
 				try {
 					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getBlockInfo(b, "filter-type") == null || BlockStorage.getBlockInfo(b, "filter-type").equals("whitelist")) {
-						menu.replaceExistingItem(23, new CustomItem(new MaterialData(Material.WOOL), "§7Type: §rWhitelist", "", "§e> Click to change it to Blacklist"));
+						menu.replaceExistingItem(23, new CustomItem(config.type_wl()));
 						menu.addMenuClickHandler(23, new MenuClickHandler() {
 
 							@Override
@@ -50,7 +50,7 @@ public class ImportBus extends SlimefunItem {
 						});
 					}
 					else {
-						menu.replaceExistingItem(23, new CustomItem(new MaterialData(Material.WOOL, (byte) 15), "§7Type: §8Blacklist", "", "§e> Click to change it to Whitelist"));
+						menu.replaceExistingItem(23, new CustomItem(config.type_bl()));
 						menu.addMenuClickHandler(23, new MenuClickHandler() {
 
 							@Override
@@ -63,7 +63,7 @@ public class ImportBus extends SlimefunItem {
 					}
 					
 					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getBlockInfo(b, "filter-durability") == null || BlockStorage.getBlockInfo(b, "filter-durability").equals("false")) {
-						menu.replaceExistingItem(41, new CustomItem(new MaterialData(Material.STONE_SWORD, (byte) 20), "§7Include Sub-IDs/Durability: §4\u2718", "", "§e> Click to toggle whether the Durability has to match"));
+						menu.replaceExistingItem(41, new CustomItem(config.fdf()));
 						menu.addMenuClickHandler(41, new MenuClickHandler() {
 
 							@Override
@@ -75,7 +75,7 @@ public class ImportBus extends SlimefunItem {
 						});
 					}
 					else {
-						menu.replaceExistingItem(41, new CustomItem(new MaterialData(Material.GOLD_SWORD, (byte) 20), "§7Include Sub-IDs/Durability: §2\u2714", "", "§e> Click to toggle whether the Durability has to match"));
+						menu.replaceExistingItem(41, new CustomItem(config.fdt()));
 						menu.addMenuClickHandler(41, new MenuClickHandler() {
 
 							@Override
@@ -88,7 +88,7 @@ public class ImportBus extends SlimefunItem {
 					}
 					
 					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getBlockInfo(b, "filter-lore") == null || BlockStorage.getBlockInfo(b, "filter-lore").equals("true")) {
-						menu.replaceExistingItem(32, new CustomItem(new MaterialData(Material.EMPTY_MAP), "§7Include Lore: §2\u2714", "", "§e> Click to toggle whether the Lore has to match"));
+						menu.replaceExistingItem(32, new CustomItem(config.flt()));
 						menu.addMenuClickHandler(32, new MenuClickHandler() {
 
 							@Override
@@ -100,7 +100,7 @@ public class ImportBus extends SlimefunItem {
 						});
 					}
 					else {
-						menu.replaceExistingItem(32, new CustomItem(new MaterialData(Material.EMPTY_MAP), "§7Include Lore: §4\u2718", "", "§e> Click to toggle whether the Lore has to match"));
+						menu.replaceExistingItem(32, new CustomItem(config.flf()));
 						menu.addMenuClickHandler(32, new MenuClickHandler() {
 
 							@Override
@@ -213,7 +213,7 @@ public class ImportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(2, new CustomItem(new MaterialData(Material.PAPER), "§3Items", "", "§bPut in all Items you want to", "§bblacklist/whitelist"),
+		preset.addItem(2, new CustomItem(config.type_bw()),
 		new MenuClickHandler() {
 
 			@Override
