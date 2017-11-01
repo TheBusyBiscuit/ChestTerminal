@@ -5,6 +5,7 @@ import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHan
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.CSCoreLibPlugin.general.World.CustomSkull;
+import me.mrCookieSlime.ChestTerminal.util.config;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunBlockHandler;
@@ -28,7 +29,7 @@ public class AccessTerminal extends SlimefunItem {
 	public AccessTerminal(Category category, ItemStack item, String name, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, name, recipeType, recipe);
 
-		new BlockMenuPreset(name, "ง3CT Access Terminal") {
+		new BlockMenuPreset(name, config.Access_Terminal.replace("&", "ยง")) {
 			
 			@Override
 			public void init() {
@@ -38,7 +39,7 @@ public class AccessTerminal extends SlimefunItem {
 			@Override
 			public void newInstance(final BlockMenu menu, final Block b) {
 				try {
-					menu.replaceExistingItem(46, new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI1OTliZDk4NjY1OWI4Y2UyYzQ5ODg1MjVjOTRlMTlkZGQzOWZhZDA4YTM4Mjg0YTE5N2YxYjcwNjc1YWNjIn19fQ=="), "ง7\u21E6 Previous Page", "", "งc(This may take up to a Second to update)"));
+					menu.replaceExistingItem(46, new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI1OTliZDk4NjY1OWI4Y2UyYzQ5ODg1MjVjOTRlMTlkZGQzOWZhZDA4YTM4Mjg0YTE5N2YxYjcwNjc1YWNjIn19fQ=="), "ยง7\u21E6 Previous Page", "", "ยงc(This may take up to a Second to update)"));
 					menu.addMenuClickHandler(46, new MenuClickHandler() {
 
 						@Override
@@ -52,7 +53,7 @@ public class AccessTerminal extends SlimefunItem {
 						}
 					});
 					
-					menu.replaceExistingItem(50, new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJmOTEwYzQ3ZGEwNDJlNGFhMjhhZjZjYzgxY2Y0OGFjNmNhZjM3ZGFiMzVmODhkYjk5M2FjY2I5ZGZlNTE2In19fQ=="), "ง7Next Page \u21E8", "", "งc(This may take up to a Second to update)"));
+					menu.replaceExistingItem(50, new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJmOTEwYzQ3ZGEwNDJlNGFhMjhhZjZjYzgxY2Y0OGFjNmNhZjM3ZGFiMzVmODhkYjk5M2FjY2I5ZGZlNTE2In19fQ=="), "ยง7Next Page \u21E8", "", "ยงc(This may take up to a Second to update)"));
 					menu.addMenuClickHandler(50, new MenuClickHandler() {
 
 						@Override
@@ -240,7 +241,7 @@ public class AccessTerminal extends SlimefunItem {
 	public void register(boolean slimefun) {
 		addItemHandler(new BlockTicker() {
 			
-			final ItemStack item = new CustomItem(new MaterialData(Material.BARRIER), "ง4No Cargo Net connected!");
+			final ItemStack item = new CustomItem(new MaterialData(Material.BARRIER), config.No_Cargo_Connected.replace("&", "ยง"));
 			final MenuClickHandler click = new MenuClickHandler() {
 				
 				@Override
