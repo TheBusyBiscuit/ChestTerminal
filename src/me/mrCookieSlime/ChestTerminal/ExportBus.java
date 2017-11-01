@@ -3,6 +3,7 @@ package me.mrCookieSlime.ChestTerminal;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
+import me.mrCookieSlime.ChestTerminal.util.config;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunBlockHandler;
@@ -26,7 +27,7 @@ public class ExportBus extends SlimefunItem {
 	public ExportBus(Category category, ItemStack item, String name, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, name, recipeType, recipe);
 		
-		new BlockMenuPreset(name, "§3CT Export Bus") {
+		new BlockMenuPreset(name, config.Export_Bus.replace("&", "Â§")) {
 			
 			@Override
 			public void init() {
@@ -133,7 +134,7 @@ public class ExportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(2, new CustomItem(new MaterialData(Material.PAPER), "§3Items", "", "§bPut in all Items you want to", "§bwhitelist"),
+		preset.addItem(2, new CustomItem(config.wl_items()),
 		new MenuClickHandler() {
 
 			@Override
