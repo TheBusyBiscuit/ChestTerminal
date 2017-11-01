@@ -1,0 +1,120 @@
+Messages:
+    Click_To_Open: "&a> Click to open"
+    Crafting_Component: "&7Crafting Component"
+    Linked_To: "&8\u21E8 &7Linked to: &8"
+    Linked_To_Coords: "&8\u21E8 &7Linked to: &8{world} X: {x} Y: {y} Z: {z}" #NOTE: DO NOT CHANGE X, Y AND Z
+    Linked_To_Nowhere: "&8\u21E8 &7Linked to: &cNowhere"
+    Link_Established: "&bLink established!"
+    Units: "Unit(s)"
+    Device_Not_Linked: "&4Failed &c- This Device has not been linked to a Chest Terminal!"
+    Device_No_Longer_Exist: "&4Failed &c- The Chest Terminal that this Device has been linked to no longer exists!"
+    Out_Of_Energy: "&4Failed &c- You are out of Energy!"
+    Out_Of_Range: "&4Failed &c- You are out of Range!"
+    No_Cargo_Connected: "&4No Cargo Net connected!"
+Items:
+  MilkyQuartz:
+    Name: "&rMilky Quartz"
+  Wireless_Terminal16:
+    Name: "&3CT Wireless Access Terminal &b(16)"
+    Lore:
+      - "&8\u21E8 &7Linked to: &cNowhere"
+      - "&8\u21E8 &7Range: &e16 Blocks"
+      - "&c&o&8\u21E8 &e\u26A1 &70 / 10 J"
+      - ""
+      - "&7If this Block is linked to an Access Terminal"
+      - "&7it will be able to remotely access that Terminal"
+      - ""
+      - "&7&eRight Click on an Access Terminal &7to link"
+      - "&7&eRight Click&7 to open the linked Terminal"
+  Wireless_Terminal64:
+    Name: "&3CT Wireless Access Terminal &b(64)"
+    Lore:
+      - "&8\u21E8 &7Linked to: &cNowhere"
+      - "&8\u21E8 &7Range: &e64 Blocks"
+      - "&c&o&8\u21E8 &e\u26A1 &70 / 25 J"
+      - ""
+      - "&7If this Block is linked to an Access Terminal"
+      - "&7it will be able to remotely access that Terminal"
+      - ""
+      - "&7&eRight Click on an Access Terminal &7to link"
+      - "&7&eRight Click&7 to open the linked Terminal"
+  Wireless_Terminal128:
+    Name: "&3CT Wireless Access Terminal &b(128)"
+    Lore:
+      - "&8\u21E8 &7Linked to: &cNowhere"
+      - "&8\u21E8 &7Range: &e128 Blocks"
+      - "&c&o&8\u21E8 &e\u26A1 &70 / 50 J"
+      - ""
+      - "&7If this Block is linked to an Access Terminal"
+      - "&7it will be able to remotely access that Terminal"
+      - ""
+      - "&7&eRight Click on an Access Terminal &7to link"
+      - "&7&eRight Click&7 to open the linked Terminal"
+  Wireless_TerminalT:
+    Name: "&3CT Wireless Access Terminal &b(Transdimensional)"
+    Lore:
+      - "&8\u21E8 &7Linked to: &cNowhere"
+      - "&8\u21E8 &7Range: &eUnlimited"
+      - "&c&o&8\u21E8 &e\u26A1 &70 / 50 J"
+      - ""
+      - "&7If this Block is linked to an Access Terminal"
+      - "&7it will be able to remotely access that Terminal"
+      - ""
+      - "&7&eRight Click on an Access Terminal &7to link"
+      - "&7&eRight Click&7 to open the linked Terminal"
+  Quartz_Drill:
+    Name: "&3Quartz Drill"
+    Lore:
+      - "&7Mines up Milky Quartz"
+      - ""
+      - "&c&l! &cMake sure to Geo-Scan the Chunk first"
+  Whitelist_Items:
+    Name: "&3Items"
+    Lore:
+      - ""
+      - "&bPut in all Items you want to"
+      - "&bwhitelist"
+  Type_Whitelist:
+    Name: "&7Type: &rWhitelist"
+    Lore:
+      - ""
+      - "&e> Click to change it to Blacklist"
+  Type_Blacklist:
+    Name: "&7Type: &8Blacklist"
+    Lore:
+      - ""
+      - "&e> Click to change it to Whitelist"
+  Type_BW:
+    Name: "&3Items"
+    Lore:
+      - ""
+      - "&bPut in all Items you want to"
+      - "&bblacklist/whitelist"
+  Filter_Durability_True:
+    Name: "&7Include Sub-IDs/Durability: &2\u2714"
+    Lore:
+      - ""
+      - "&e> Click to toggle whether the Durability has to match"
+  Filter_Durability_False:
+    Name: "&7Include Sub-IDs/Durability: &4\u2718"
+    Lore:
+      - ""
+      - "&e> Click to toggle whether the Durability has to match"
+  Filter_Lore_True:
+    Name: "&7Include Lore: &2\u2714"
+    Lore:
+      - ""
+      - "&e> Click to toggle whether the Lore has to match"
+  Filter_Lore_False:
+    Name: "&7Include Lore: &4\u2718"
+    Lore:
+      - ""
+      - "&e> Click to toggle whether the Lore has to match"
+  Illuminated_Panel:
+    Name: "&3CT Illuminated Panel"
+  Access_Terminal:
+    Name: "&3CT Access Terminal"
+  Export_Bus:
+    Name: "&3CT Export Bus"
+  Import_Bus:
+    Name: "&3CT Import Bus"
