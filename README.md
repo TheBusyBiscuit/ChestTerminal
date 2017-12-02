@@ -4,7 +4,6 @@ I will no longer maintain / update this Project but you can feel free to fork it
 
 # Compiling
 You will have to compile this Plugin yourself.
-ChestTerminal has been compiled with
-* CraftBukkit v1.11.2-R.01
-* CS-CoreLib v1.5.2
-* Slimefun v4.1.2
+
+Make sure you have [Maven](https://maven.apache.org/download.cgi) installed and run
+```mvn package```
