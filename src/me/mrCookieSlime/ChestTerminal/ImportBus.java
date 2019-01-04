@@ -1,5 +1,12 @@
 package me.mrCookieSlime.ChestTerminal;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
+
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
@@ -13,12 +20,6 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.MaterialData;
-
 public class ImportBus extends SlimefunItem {
 	
 	private static final int[] border = {0, 1, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 18, 22, 24, 27, 31, 33, 34, 35, 36, 40, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53};
@@ -26,7 +27,7 @@ public class ImportBus extends SlimefunItem {
 	public ImportBus(Category category, ItemStack item, String name, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, name, recipeType, recipe);
 		
-		new BlockMenuPreset(name, "§3CT Import Bus") {
+		new BlockMenuPreset(name, ChatColor.translateAlternateColorCodes('&', "&3CT Import Bus")) {
 			
 			@Override
 			public void init() {
@@ -37,8 +38,8 @@ public class ImportBus extends SlimefunItem {
 			@Override
 			public void newInstance(final BlockMenu menu, final Block b) {
 				try {
-					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getBlockInfo(b, "filter-type") == null || BlockStorage.getBlockInfo(b, "filter-type").equals("whitelist")) {
-						menu.replaceExistingItem(23, new CustomItem(new MaterialData(Material.WOOL), "§7Type: §rWhitelist", "", "§e> Click to change it to Blacklist"));
+					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getLocationInfo(b.getLocation(), "filter-type") == null || BlockStorage.getLocationInfo(b.getLocation(), "filter-type").equals("whitelist")) {
+						menu.replaceExistingItem(23, new CustomItem(Material.WHITE_WOOL, "&7Type: &rWhitelist", "", "&e> Click to change it to Blacklist"));
 						menu.addMenuClickHandler(23, new MenuClickHandler() {
 
 							@Override
@@ -50,7 +51,7 @@ public class ImportBus extends SlimefunItem {
 						});
 					}
 					else {
-						menu.replaceExistingItem(23, new CustomItem(new MaterialData(Material.WOOL, (byte) 15), "§7Type: §8Blacklist", "", "§e> Click to change it to Whitelist"));
+						menu.replaceExistingItem(23, new CustomItem(Material.BLACK_WOOL, "&7Type: &8Blacklist", "", "&e> Click to change it to Whitelist"));
 						menu.addMenuClickHandler(23, new MenuClickHandler() {
 
 							@Override
@@ -62,8 +63,8 @@ public class ImportBus extends SlimefunItem {
 						});
 					}
 					
-					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getBlockInfo(b, "filter-durability") == null || BlockStorage.getBlockInfo(b, "filter-durability").equals("false")) {
-						menu.replaceExistingItem(41, new CustomItem(new MaterialData(Material.STONE_SWORD, (byte) 20), "§7Include Sub-IDs/Durability: §4\u2718", "", "§e> Click to toggle whether the Durability has to match"));
+					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getLocationInfo(b.getLocation(), "filter-durability") == null || BlockStorage.getLocationInfo(b.getLocation(), "filter-durability").equals("false")) {
+						menu.replaceExistingItem(41, new CustomItem(new MaterialData(Material.STONE_SWORD, (byte) 20), "&7Include Sub-IDs/Durability: &4\u2718", "", "&e> Click to toggle whether the Durability has to match"));
 						menu.addMenuClickHandler(41, new MenuClickHandler() {
 
 							@Override
@@ -75,7 +76,7 @@ public class ImportBus extends SlimefunItem {
 						});
 					}
 					else {
-						menu.replaceExistingItem(41, new CustomItem(new MaterialData(Material.GOLD_SWORD, (byte) 20), "§7Include Sub-IDs/Durability: §2\u2714", "", "§e> Click to toggle whether the Durability has to match"));
+						menu.replaceExistingItem(41, new CustomItem(new MaterialData(Material.GOLDEN_SWORD, (byte) 20), "&7Include Sub-IDs/Durability: &2\u2714", "", "&e> Click to toggle whether the Durability has to match"));
 						menu.addMenuClickHandler(41, new MenuClickHandler() {
 
 							@Override
@@ -87,8 +88,8 @@ public class ImportBus extends SlimefunItem {
 						});
 					}
 					
-					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getBlockInfo(b, "filter-lore") == null || BlockStorage.getBlockInfo(b, "filter-lore").equals("true")) {
-						menu.replaceExistingItem(32, new CustomItem(new MaterialData(Material.EMPTY_MAP), "§7Include Lore: §2\u2714", "", "§e> Click to toggle whether the Lore has to match"));
+					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getLocationInfo(b.getLocation(), "filter-lore") == null || BlockStorage.getLocationInfo(b.getLocation(), "filter-lore").equals("true")) {
+						menu.replaceExistingItem(32, new CustomItem(Material.MAP, "&7Include Lore: &2\u2714", "", "&e> Click to toggle whether the Lore has to match"));
 						menu.addMenuClickHandler(32, new MenuClickHandler() {
 
 							@Override
@@ -100,7 +101,7 @@ public class ImportBus extends SlimefunItem {
 						});
 					}
 					else {
-						menu.replaceExistingItem(32, new CustomItem(new MaterialData(Material.EMPTY_MAP), "§7Include Lore: §4\u2718", "", "§e> Click to toggle whether the Lore has to match"));
+						menu.replaceExistingItem(32, new CustomItem(Material.MAP, "&7Include Lore: &4\u2718", "", "&e> Click to toggle whether the Lore has to match"));
 						menu.addMenuClickHandler(32, new MenuClickHandler() {
 
 							@Override
@@ -119,7 +120,7 @@ public class ImportBus extends SlimefunItem {
 
 			@Override
 			public boolean canOpen(Block b, Player p) {
-				return BlockStorage.getBlockInfo(b, "owner").equals(p.getUniqueId().toString()) || p.hasPermission("slimefun.cargo.bypass");
+				return BlockStorage.getLocationInfo(b.getLocation(), "owner").equals(p.getUniqueId().toString()) || p.hasPermission("slimefun.cargo.bypass");
 			}
 
 			@Override
@@ -149,10 +150,9 @@ public class ImportBus extends SlimefunItem {
 		});
 	}
 	
-	@SuppressWarnings("deprecation")
 	protected void constructMenu(BlockMenuPreset preset) {
 		for (int i: border) {
-			preset.addItem(i, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 9), " "),
+			preset.addItem(i, new CustomItem(Material.CYAN_STAINED_GLASS_PANE, " "),
 			new MenuClickHandler() {
 
 				@Override
@@ -163,7 +163,7 @@ public class ImportBus extends SlimefunItem {
 			});
 		}
 
-		preset.addItem(7, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 1), " "),
+		preset.addItem(7, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "),
 		new MenuClickHandler() {
 
 			@Override
@@ -173,7 +173,7 @@ public class ImportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(8, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 1), " "),
+		preset.addItem(8, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "),
 		new MenuClickHandler() {
 
 			@Override
@@ -183,7 +183,7 @@ public class ImportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(16, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 1), " "),
+		preset.addItem(16, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "),
 		new MenuClickHandler() {
 
 			@Override
@@ -193,7 +193,7 @@ public class ImportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(25, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 1), " "),
+		preset.addItem(25, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "),
 		new MenuClickHandler() {
 
 			@Override
@@ -203,7 +203,7 @@ public class ImportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(26, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 1), " "),
+		preset.addItem(26, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "),
 		new MenuClickHandler() {
 
 			@Override
@@ -213,7 +213,7 @@ public class ImportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(2, new CustomItem(new MaterialData(Material.PAPER), "§3Items", "", "§bPut in all Items you want to", "§bblacklist/whitelist"),
+		preset.addItem(2, new CustomItem(Material.PAPER, "&3Items", "", "&bPut in all Items you want to", "&bblacklist/whitelist"),
 		new MenuClickHandler() {
 
 			@Override

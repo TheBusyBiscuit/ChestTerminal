@@ -1,5 +1,10 @@
 package me.mrCookieSlime.ChestTerminal;
 
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
@@ -13,12 +18,6 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.MaterialData;
-
 public class ExportBus extends SlimefunItem {
 	
 	private static final int[] border = {0, 1, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 18, 22, 24, 27, 31, 33, 34, 35, 36, 40, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 32, 23, 41};
@@ -26,7 +25,7 @@ public class ExportBus extends SlimefunItem {
 	public ExportBus(Category category, ItemStack item, String name, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, name, recipeType, recipe);
 		
-		new BlockMenuPreset(name, "§3CT Export Bus") {
+		new BlockMenuPreset(name, "ï¿½3CT Export Bus") {
 			
 			@Override
 			public void init() {
@@ -39,7 +38,7 @@ public class ExportBus extends SlimefunItem {
 
 			@Override
 			public boolean canOpen(Block b, Player p) {
-				return BlockStorage.getBlockInfo(b, "owner").equals(p.getUniqueId().toString()) || p.hasPermission("slimefun.cargo.bypass");
+				return BlockStorage.getLocationInfo(b.getLocation(), "owner").equals(p.getUniqueId().toString()) || p.hasPermission("slimefun.cargo.bypass");
 			}
 
 			@Override
@@ -69,10 +68,9 @@ public class ExportBus extends SlimefunItem {
 		});
 	}
 	
-	@SuppressWarnings("deprecation")
 	protected void constructMenu(BlockMenuPreset preset) {
 		for (int i: border) {
-			preset.addItem(i, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 9), " "),
+			preset.addItem(i, new CustomItem(Material.CYAN_STAINED_GLASS_PANE, " "),
 			new MenuClickHandler() {
 
 				@Override
@@ -83,7 +81,7 @@ public class ExportBus extends SlimefunItem {
 			});
 		}
 
-		preset.addItem(7, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 11), " "),
+		preset.addItem(7, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "),
 		new MenuClickHandler() {
 
 			@Override
@@ -93,7 +91,7 @@ public class ExportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(8, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 11), " "),
+		preset.addItem(8, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "),
 		new MenuClickHandler() {
 
 			@Override
@@ -103,7 +101,7 @@ public class ExportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(16, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 11), " "),
+		preset.addItem(16, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "),
 		new MenuClickHandler() {
 
 			@Override
@@ -113,7 +111,7 @@ public class ExportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(25, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 11), " "),
+		preset.addItem(25, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "),
 		new MenuClickHandler() {
 
 			@Override
@@ -123,7 +121,7 @@ public class ExportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(26, new CustomItem(new MaterialData(Material.STAINED_GLASS_PANE, (byte) 11), " "),
+		preset.addItem(26, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "),
 		new MenuClickHandler() {
 
 			@Override
@@ -133,7 +131,7 @@ public class ExportBus extends SlimefunItem {
 			
 		});
 
-		preset.addItem(2, new CustomItem(new MaterialData(Material.PAPER), "§3Items", "", "§bPut in all Items you want to", "§bwhitelist"),
+		preset.addItem(2, new CustomItem(Material.PAPER, "&3Items", "", "&bPut in all Items you want to", "&bwhitelist"),
 		new MenuClickHandler() {
 
 			@Override
