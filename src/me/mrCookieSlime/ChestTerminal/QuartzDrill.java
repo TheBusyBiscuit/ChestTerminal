@@ -128,7 +128,7 @@ public abstract class QuartzDrill extends AContainer {
 
 	@Override
 	public String getInventoryTitle() {
-		return "�3Quartz Drill";
+		return "&3Quartz Drill";
 	}
 
 	@Override

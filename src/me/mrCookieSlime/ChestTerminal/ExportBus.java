@@ -25,7 +25,7 @@ public class ExportBus extends SlimefunItem {
 	public ExportBus(Category category, ItemStack item, String name, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, name, recipeType, recipe);
 		
-		new BlockMenuPreset(name, "�3CT Export Bus") {
+		new BlockMenuPreset(name, "&3CT Export Bus") {
 			
 			@Override
 			public void init() {
