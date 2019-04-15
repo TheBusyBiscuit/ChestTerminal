@@ -4,4 +4,6 @@ author: mrCookieSlime
 website: http://TheBusyBiscuit.github.io/
 depend: [CS-CoreLib, Slimefun]
 
+api-version: 1.13
+
 main: me.mrCookieSlime.ChestTerminal.ChestTerminal
