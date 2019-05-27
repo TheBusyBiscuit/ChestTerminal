@@ -50,7 +50,7 @@
         <dependency>
 	        <groupId>com.github.TheBusyBiscuit</groupId>
 	        <artifactId>CS-CoreLib</artifactId>
-	        <version>2e140f829f</version>
+	        <version>v1.6</version>
 	    </dependency>
         <dependency>
 	    	<groupId>com.github.TheBusyBiscuit</groupId>
