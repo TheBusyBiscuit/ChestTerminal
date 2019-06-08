@@ -5,7 +5,6 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.MaterialData;
 
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
@@ -33,8 +32,7 @@ public class ImportBus extends SlimefunItem {
 			public void init() {
 				constructMenu(this);
 			}
-
-			@SuppressWarnings("deprecation")
+			
 			@Override
 			public void newInstance(final BlockMenu menu, final Block b) {
 				try {
@@ -64,7 +62,7 @@ public class ImportBus extends SlimefunItem {
 					}
 					
 					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getLocationInfo(b.getLocation(), "filter-durability") == null || BlockStorage.getLocationInfo(b.getLocation(), "filter-durability").equals("false")) {
-						menu.replaceExistingItem(41, new CustomItem(new MaterialData(Material.STONE_SWORD, (byte) 20), "&7Include Sub-IDs/Durability: &4\u2718", "", "&e> Click to toggle whether the Durability has to match"));
+						menu.replaceExistingItem(41, new CustomItem(Material.STONE_SWORD, "&7Include Sub-IDs/Durability: &4\u2718", "", "&e> Click to toggle whether the Durability has to match"));
 						menu.addMenuClickHandler(41, new MenuClickHandler() {
 
 							@Override
@@ -76,7 +74,7 @@ public class ImportBus extends SlimefunItem {
 						});
 					}
 					else {
-						menu.replaceExistingItem(41, new CustomItem(new MaterialData(Material.GOLDEN_SWORD, (byte) 20), "&7Include Sub-IDs/Durability: &2\u2714", "", "&e> Click to toggle whether the Durability has to match"));
+						menu.replaceExistingItem(41, new CustomItem(Material.GOLDEN_SWORD, "&7Include Sub-IDs/Durability: &2\u2714", "", "&e> Click to toggle whether the Durability has to match"));
 						menu.addMenuClickHandler(41, new MenuClickHandler() {
 
 							@Override
