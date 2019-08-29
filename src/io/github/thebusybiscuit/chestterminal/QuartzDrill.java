@@ -42,38 +42,16 @@ public abstract class QuartzDrill extends AContainer {
 			}
 
 			private void constructMenu(BlockMenuPreset preset) {
+				MenuClickHandler click = (p, slot, item, action) -> false;
+				
 				for (int i: border) {
-					preset.addItem(i, new CustomItem(Material.GRAY_STAINED_GLASS_PANE, " "),
-					new MenuClickHandler() {
-
-						@Override
-						public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-							return false;
-						}
-								
-					});
+					preset.addItem(i, new CustomItem(Material.GRAY_STAINED_GLASS_PANE, " "), click);
 				}
 				for (int i: border_out) {
-					preset.addItem(i, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "),
-					new MenuClickHandler() {
-
-						@Override
-						public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-							return false;
-						}
-								
-					});
+					preset.addItem(i, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "), click);
 				}
 				
-				preset.addItem(22, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "),
-				new MenuClickHandler() {
-
-					@Override
-					public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-						return false;
-					}
-									
-				});
+				preset.addItem(22, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), click);
 				
 				for (int i: getOutputSlots()) {
 					preset.addMenuClickHandler(i, new AdvancedMenuClickHandler() {
@@ -148,7 +126,7 @@ public abstract class QuartzDrill extends AContainer {
 		        item.setDurability(MachineHelper.getDurability(item, timeleft, processing.get(b).getTicks()));
 				ItemMeta im = item.getItemMeta();
 				im.setDisplayName(" ");
-				List<String> lore = new ArrayList<String>();
+				List<String> lore = new ArrayList<>();
 				lore.add(MachineHelper.getProgress(timeleft, processing.get(b).getTicks()));
 				lore.add("");
 				lore.add(MachineHelper.getTimeLeft(timeleft / 2));

@@ -149,77 +149,19 @@ public class ImportBus extends SlimefunItem {
 	}
 	
 	protected void constructMenu(BlockMenuPreset preset) {
+		MenuClickHandler click = (p, slot, item, action) -> false;
+		
 		for (int i: border) {
-			preset.addItem(i, new CustomItem(Material.CYAN_STAINED_GLASS_PANE, " "),
-			new MenuClickHandler() {
-
-				@Override
-				public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-					return false;
-				}
-				
-			});
+			preset.addItem(i, new CustomItem(Material.CYAN_STAINED_GLASS_PANE, " "), click);
 		}
 
-		preset.addItem(7, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "),
-		new MenuClickHandler() {
+		preset.addItem(7, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "), click);
+		preset.addItem(8, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "), click);
+		preset.addItem(16, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "), click);
+		preset.addItem(25, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "), click);
+		preset.addItem(26, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "), click);
 
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
-
-		preset.addItem(8, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "),
-		new MenuClickHandler() {
-
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
-
-		preset.addItem(16, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "),
-		new MenuClickHandler() {
-
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
-
-		preset.addItem(25, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "),
-		new MenuClickHandler() {
-
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
-
-		preset.addItem(26, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "),
-		new MenuClickHandler() {
-
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
-
-		preset.addItem(2, new CustomItem(Material.PAPER, "&3Items", "", "&bPut in all Items you want to", "&bblacklist/whitelist"),
-		new MenuClickHandler() {
-
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
+		preset.addItem(2, new CustomItem(Material.PAPER, "&3Items", "", "&bPut in all Items you want to", "&bblacklist/whitelist"), click);
 	}
 	
 	public int[] getInputSlots() {

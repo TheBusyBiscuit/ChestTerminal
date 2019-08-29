@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
-import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
@@ -69,77 +68,19 @@ public class ExportBus extends SlimefunItem {
 	}
 	
 	protected void constructMenu(BlockMenuPreset preset) {
+		MenuClickHandler click = (p, slot, item, action) -> false;
+		
 		for (int i: border) {
-			preset.addItem(i, new CustomItem(Material.CYAN_STAINED_GLASS_PANE, " "),
-			new MenuClickHandler() {
-
-				@Override
-				public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-					return false;
-				}
-				
-			});
+			preset.addItem(i, new CustomItem(Material.CYAN_STAINED_GLASS_PANE, " "), click);
 		}
 
-		preset.addItem(7, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "),
-		new MenuClickHandler() {
+		preset.addItem(7, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "), click);
+		preset.addItem(8, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "), click);
+		preset.addItem(16, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "), click);
+		preset.addItem(25, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "), click);
+		preset.addItem(26, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "), click);
 
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
-
-		preset.addItem(8, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "),
-		new MenuClickHandler() {
-
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
-
-		preset.addItem(16, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "),
-		new MenuClickHandler() {
-
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
-
-		preset.addItem(25, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "),
-		new MenuClickHandler() {
-
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
-
-		preset.addItem(26, new CustomItem(Material.BLUE_STAINED_GLASS_PANE, " "),
-		new MenuClickHandler() {
-
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
-
-		preset.addItem(2, new CustomItem(Material.PAPER, "&3Items", "", "&bPut in all Items you want to", "&bwhitelist"),
-		new MenuClickHandler() {
-
-			@Override
-			public boolean onClick(Player arg0, int arg1, ItemStack arg2, ClickAction arg3) {
-				return false;
-			}
-			
-		});
+		preset.addItem(2, new CustomItem(Material.PAPER, "&3Items", "", "&bPut in all Items you want to", "&bwhitelist"), click);
 	}
 	
 	public int[] getInputSlots() {
