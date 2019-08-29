@@ -1,4 +1,4 @@
-package me.mrCookieSlime.ChestTerminal;
+package io.github.thebusybiscuit.chestterminal;
 
 import java.util.ArrayList;
 import java.util.List;

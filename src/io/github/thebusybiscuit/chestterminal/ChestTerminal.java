@@ -1,7 +1,8 @@
-package me.mrCookieSlime.ChestTerminal;
+package io.github.thebusybiscuit.chestterminal;
 
 import java.util.List;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -13,7 +14,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.github.thebusybiscuit.cscorelib2.updater.GitHubBuildsUpdater;
+import io.github.thebusybiscuit.cscorelib2.updater.Updater;
 import me.mrCookieSlime.CSCoreLibPlugin.CSCoreLib;
+import me.mrCookieSlime.CSCoreLibPlugin.PluginUtils;
+import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.events.ItemUseEvent;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Player.PlayerInventory;
@@ -23,7 +28,7 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.handlers.ItemInteractionHandler;
+import me.mrCookieSlime.Slimefun.Objects.handlers.ItemInteractionHandler;
 import me.mrCookieSlime.Slimefun.Setup.SlimefunManager;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.energy.ItemEnergy;
@@ -35,6 +40,23 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 	
 	@Override
 	public void onEnable() {
+		PluginUtils utils = new PluginUtils(this);
+		utils.setupConfig();
+		Config cfg = utils.getConfig();
+		
+		// Setting up bStats
+		new Metrics(this);
+
+		// Setting up the Auto-Updater
+		Updater updater = null;
+
+		if (getDescription().getVersion().startsWith("DEV - ")) {
+			// If we are using a development build, we want to switch to our custom 
+			updater = new GitHubBuildsUpdater(this, getFile(), "TheBusyBiscuit/ChestTerminal/master");
+		}
+
+		if (updater != null && cfg.getBoolean("options.auto-update")) updater.start();
+		
 		Category category = new Category(new CustomItem(SlimefunItems.CHEST_TERMINAL, "&5Chest Terminal", "", "&a> Click to open"));
 		
 		final ItemStack wireless_terminal16 = new CustomItem(new ItemStack(Material.ITEM_FRAME), "&3CT Wireless Access Terminal &b(16)", "&8\u21E8 &7Linked to: &cNowhere", "&8\u21E8 &7Range: &e16 Blocks", "&c&o&8\u21E8 &e\u26A1 &70 / 10 J", "", "&7If this Block is linked to an Access Terminal", "&7it will be able to remotely access that Terminal", "", "&7&eRight Click on an Access Terminal &7to link", "&7&eRight Click&7 to open the linked Terminal");
@@ -55,6 +77,7 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 			public int getEnergyConsumption() {
 				return 60;
 			}
+			
 		}.registerChargeableBlock(512);
 
 		new SlimefunItem(category, quartz, "MILKY_QUARTZ", new RecipeType(drill), new ItemStack[0]).register();

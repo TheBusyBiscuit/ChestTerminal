@@ -1,4 +1,4 @@
-package me.mrCookieSlime.ChestTerminal;
+package io.github.thebusybiscuit.chestterminal;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
