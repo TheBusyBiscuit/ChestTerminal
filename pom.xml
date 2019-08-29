@@ -44,6 +44,7 @@
             	<directory>${basedir}/src</directory>
                 <filtering>true</filtering>
                 <includes>
+                    <include>config.yml</include>
                     <include>plugin.yml</include>
                 </includes>
             </resource>
