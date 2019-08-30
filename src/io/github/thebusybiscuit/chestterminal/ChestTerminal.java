@@ -241,7 +241,7 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 			}
 		});
 		
-		CargoNet.EXTRA_CHANNELS = true;
+		CargoNet.extraChannels = true;
 	}
 
 	private void openRemoteTerminal(Player p, ItemStack stack, String loc, int range) {
