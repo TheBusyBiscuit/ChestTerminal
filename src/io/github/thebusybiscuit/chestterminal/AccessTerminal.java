@@ -10,6 +10,7 @@ import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.CSCoreLibPlugin.general.World.CustomSkull;
+import me.mrCookieSlime.Slimefun.SlimefunPlugin;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunBlockHandler;
@@ -21,6 +22,7 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.CargoNet;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
+import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectionModule.Action;
 
 public class AccessTerminal extends SlimefunItem {
 
@@ -62,7 +64,7 @@ public class AccessTerminal extends SlimefunItem {
 
 			@Override
 			public boolean canOpen(Block b, Player p) {
-				return true;
+				return SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(), Action.ACCESS_INVENTORIES);
 			}
 
 			@Override
@@ -128,10 +130,6 @@ public class AccessTerminal extends SlimefunItem {
 						menu.addMenuClickHandler(slot, click);
 					}
 				}
-			}
-
-			@Override
-			public void uniqueTick() {
 			}
 
 			@Override

@@ -8,11 +8,12 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import me.mrCookieSlime.CSCoreLibPlugin.CSCoreLib;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
+import me.mrCookieSlime.Slimefun.SlimefunPlugin;
 import me.mrCookieSlime.Slimefun.GEO.OreGenSystem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
@@ -22,9 +23,9 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecip
 import me.mrCookieSlime.Slimefun.Setup.Messages;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.energy.ChargableBlock;
-import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
+import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectionModule.Action;
 
 public abstract class QuartzDrill extends AContainer {
 	
@@ -70,12 +71,8 @@ public abstract class QuartzDrill extends AContainer {
 			}
 
 			@Override
-			public void newInstance(BlockMenu menu, Block b) {
-			}
-
-			@Override
 			public boolean canOpen(Block b, Player p) {
-				if (!(p.hasPermission("slimefun.inventory.bypass") || CSCoreLib.getLib().getProtectionManager().canAccessChest(p.getUniqueId(), b, true))) {
+				if (!(p.hasPermission("slimefun.inventory.bypass") || SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(), Action.ACCESS_INVENTORIES))) {
 					return false;
 				}
 				
@@ -115,16 +112,19 @@ public abstract class QuartzDrill extends AContainer {
 	}
 
 	@Override
-	public void registerDefaultRecipes() {}
+	public void registerDefaultRecipes() {
+		// This machine has no Recipes
+	}
 	
-	@SuppressWarnings("deprecation")
+	public abstract ItemStack getOutput();
+	
 	protected void tick(Block b) {
 		if (isProcessing(b)) {
 			int timeleft = progress.get(b);
 			if (timeleft > 0) {
 				ItemStack item = getProgressBar().clone();
-		        item.setDurability(MachineHelper.getDurability(item, timeleft, processing.get(b).getTicks()));
 				ItemMeta im = item.getItemMeta();
+				((Damageable) im).setDamage(MachineHelper.getDurability(item, timeleft, processing.get(b).getTicks()));
 				im.setDisplayName(" ");
 				List<String> lore = new ArrayList<>();
 				lore.add(MachineHelper.getProgress(timeleft, processing.get(b).getTicks()));
@@ -149,7 +149,7 @@ public abstract class QuartzDrill extends AContainer {
 			}
 		}
 		else if (OreGenSystem.getSupplies(OreGenSystem.getResource("Milky Quartz"), b.getChunk(), false) > 0) {
-			MachineRecipe r = new MachineRecipe(24, new ItemStack[0], new ItemStack[] {ChestTerminal.quartz});
+			MachineRecipe r = new MachineRecipe(24, new ItemStack[0], new ItemStack[] {getOutput()});
 			if (!fits(b, r.getOutput())) return;
 			processing.put(b, r);
 			progress.put(b, r.getTicks());

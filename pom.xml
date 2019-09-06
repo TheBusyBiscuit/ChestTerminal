@@ -49,46 +49,6 @@
                 </includes>
             </resource>
         </resources>
-        
-        <plugins>
-        	<plugin>
-    			<groupId>org.apache.maven.plugins</groupId>
-    			<artifactId>maven-shade-plugin</artifactId>
-    			<version>3.2.1</version>
-
-    			<configuration>
-    				<filters>
-      					<filter>
-    						<artifact>com.github.thebusybiscuit:CS-CoreLib2</artifact>
-    						<includes>
-    							<include>**/cscorelib2/updater/**</include>
-    						</includes>
-  						</filter>
-      				</filters>
-      					
-      				<relocations>
-      					<relocation>
-            				<pattern>org.bstats</pattern>
-            				<shadedPattern>io.github.thebusybiscuit.chestterminal.bstats</shadedPattern>
-          				</relocation>
-          				
-        				<relocation>
-          					<pattern>io.github.thebusybiscuit.cscorelib2</pattern>
-          					<shadedPattern>io.github.thebusybiscuit.chestterminal.cscorelib2</shadedPattern>
-      					</relocation>
-      				</relocations>
-    			</configuration>
-
-    			<executions>
-      				<execution>
-        				<phase>package</phase>
-        				<goals>
-         					<goal>shade</goal>
-        				</goals>
-      				</execution>
-    			</executions>
-  			</plugin>
-        </plugins>
     </build>
     <dependencies>
         <dependency>
@@ -106,20 +66,8 @@
         <dependency>
 	    	<groupId>com.github.TheBusyBiscuit</groupId>
 	   		<artifactId>Slimefun4</artifactId>
-	   		<version>3400746c34</version>
+	   		<version>bc7d92468c</version>
             <scope>provided</scope>
 	    </dependency>
-        <dependency>
-  			<groupId>com.github.thebusybiscuit</groupId>
-  			<artifactId>CS-CoreLib2</artifactId>
-  			<version>0.3.7</version>
-  			<scope>compile</scope>
-		</dependency>
-		<dependency>
-  			<groupId>org.bstats</groupId>
-  			<artifactId>bstats-bukkit</artifactId>
-  			<version>1.5</version>
-  			<scope>compile</scope>
-		</dependency>
     </dependencies>
 </project>
