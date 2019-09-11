@@ -25,7 +25,7 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.energy.ChargableBlock;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
-import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectionModule.Action;
+import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 
 public abstract class QuartzDrill extends AContainer {
 	
@@ -72,7 +72,7 @@ public abstract class QuartzDrill extends AContainer {
 
 			@Override
 			public boolean canOpen(Block b, Player p) {
-				if (!(p.hasPermission("slimefun.inventory.bypass") || SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(), Action.ACCESS_INVENTORIES))) {
+				if (!(p.hasPermission("slimefun.inventory.bypass") || SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(), ProtectableAction.ACCESS_INVENTORIES))) {
 					return false;
 				}
 				

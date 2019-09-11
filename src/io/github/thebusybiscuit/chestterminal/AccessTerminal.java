@@ -22,7 +22,7 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.CargoNet;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
-import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectionModule.Action;
+import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 
 public class AccessTerminal extends SlimefunItem {
 
@@ -64,7 +64,7 @@ public class AccessTerminal extends SlimefunItem {
 
 			@Override
 			public boolean canOpen(Block b, Player p) {
-				return SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(), Action.ACCESS_INVENTORIES);
+				return SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(), ProtectableAction.ACCESS_INVENTORIES);
 			}
 
 			@Override
