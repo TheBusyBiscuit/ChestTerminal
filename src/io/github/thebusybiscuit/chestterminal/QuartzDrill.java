@@ -20,7 +20,6 @@ import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineHelper;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
-import me.mrCookieSlime.Slimefun.Setup.Messages;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.energy.ChargableBlock;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
@@ -77,7 +76,7 @@ public abstract class QuartzDrill extends AContainer {
 				}
 				
 				if (!OreGenSystem.wasResourceGenerated(OreGenSystem.getResource("Milky Quartz"), b.getChunk())) {
-					Messages.local.sendTranslation(p, "gps.geo.scan-required", true);
+					SlimefunPlugin.getLocal().sendMessage(p, "gps.geo.scan-required", true);
 					return false;
 				}
 				return true;

@@ -1,14 +1,13 @@
 package io.github.thebusybiscuit.chestterminal;
 
+import java.util.Random;
+
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.mrCookieSlime.CSCoreLibPlugin.CSCoreLib;
-import me.mrCookieSlime.CSCoreLibPlugin.PluginUtils;
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.Slimefun.GEO.OreGenResource;
 import me.mrCookieSlime.Slimefun.GEO.OreGenSystem;
@@ -18,6 +17,7 @@ import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.item_transport.CargoNet;
 import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
+import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.Updater;
 
@@ -25,9 +25,7 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 	
 	@Override
 	public void onEnable() {
-		PluginUtils utils = new PluginUtils(this);
-		utils.setupConfig();
-		Config cfg = utils.getConfig();
+		Config cfg = new Config(this);
 		
 		// Setting up bStats
 		new Metrics(this);
@@ -149,7 +147,12 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 			
 			@Override
 			public int getDefaultSupply(Biome biome) {
-				return CSCoreLib.randomizer().nextInt(6) + 1;
+				return new Random().nextInt(6) + 1;
+			}
+
+			@Override
+			public boolean isLiquid() {
+				return false;
 			}
 		});
 		
