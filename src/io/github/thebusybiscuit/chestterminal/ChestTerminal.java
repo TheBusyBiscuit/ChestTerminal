@@ -142,7 +142,7 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 			
 			@Override
 			public ItemStack getIcon() {
-				return new ItemStack(Material.QUARTZ);
+				return quartz;
 			}
 			
 			@Override
