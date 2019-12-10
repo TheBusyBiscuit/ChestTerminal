@@ -24,28 +24,23 @@
 		    <id>jitpack.io</id>
 		    <url>https://jitpack.io</url>
 		</repository>
-        <repository>
-            <id>CodeMC</id>
-            <url>https://repo.codemc.org/repository/maven-public</url>
-        </repository>
     </repositories>
     
 	<build>
         <finalName>${project.name} v${project.version}</finalName>
-        <sourceDirectory>${project.basedir}/src</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/tests/java</testSourceDirectory>
+        <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
         <testResources>
         	<testResource>
-            	<directory>${project.basedir}/tests/resources</directory>
+            	<directory>${project.basedir}/src/test/resources</directory>
           	</testResource>
         </testResources>
         <resources>
             <resource>
-            	<directory>${basedir}/src</directory>
+            	<directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>config.yml</include>
-                    <include>plugin.yml</include>
+                    <include>*</include>
                 </includes>
             </resource>
         </resources>
@@ -66,7 +61,7 @@
         <dependency>
 	    	<groupId>com.github.TheBusyBiscuit</groupId>
 	   		<artifactId>Slimefun4</artifactId>
-	   		<version>dcee66839f</version>
+	   		<version>72916b3e4f</version>
             <scope>provided</scope>
 	    </dependency>
     </dependencies>

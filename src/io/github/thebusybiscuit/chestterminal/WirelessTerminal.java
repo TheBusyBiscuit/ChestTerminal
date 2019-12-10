@@ -15,14 +15,14 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SimpleSlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.handlers.ItemInteractionHandler;
-import me.mrCookieSlime.Slimefun.Setup.SlimefunManager;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.energy.ItemEnergy;
 
 public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemInteractionHandler> {
 
-	public WirelessTerminal(Category category, ItemStack item, String id, RecipeType recipeType, ItemStack[] recipe) {
-		super(category, item, id, recipeType, recipe);
+	public WirelessTerminal(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+		super(category, item, recipeType, recipe);
 	}
 	
 	public abstract int getRange();
@@ -30,7 +30,7 @@ public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemInteractio
 	@Override
 	public ItemInteractionHandler getItemHandler() {
 		return (e, p, stack) -> {
-			if (SlimefunManager.isItemSimiliar(stack, getItem(), false)) {
+			if (isItem(stack)) {
 				ItemMeta im = stack.getItemMeta();
 				List<String> lore = im.getLore();
 				if (lore.isEmpty()) return true;

@@ -26,10 +26,10 @@ import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 
 public class AccessTerminal extends SlimefunItem {
 
-	public AccessTerminal(Category category, ItemStack item, String name, RecipeType recipeType, ItemStack[] recipe) {
-		super(category, item, name, recipeType, recipe);
+	public AccessTerminal(Category category, ItemStack item, String id, RecipeType recipeType, ItemStack[] recipe) {
+		super(category, item, id, recipeType, recipe);
 
-		new BlockMenuPreset(name, ChatColor.translateAlternateColorCodes('&', "&3CT Access Terminal")) {
+		new BlockMenuPreset(getID(), ChatColor.translateAlternateColorCodes('&', "&3CT Access Terminal")) {
 			
 			@Override
 			public void init() {
@@ -73,7 +73,7 @@ public class AccessTerminal extends SlimefunItem {
 			}
 		};
 		
-		registerBlockHandler(name, new SlimefunBlockHandler() {
+		registerBlockHandler(getID(), new SlimefunBlockHandler() {
 			
 			@Override
 			public void onPlace(Player p, Block b, SlimefunItem item) {
@@ -119,7 +119,7 @@ public class AccessTerminal extends SlimefunItem {
 		addItemHandler(new BlockTicker() {
 			
 			private final ItemStack item = new CustomItem(Material.BARRIER, "&4No Cargo Net connected!");
-			private final MenuClickHandler click = (p, slot, item, action) -> false;
+			private final MenuClickHandler click = (p, slot, stack, action) -> false;
 			
 			@Override
 			public void tick(Block b, SlimefunItem sf, Config data) {

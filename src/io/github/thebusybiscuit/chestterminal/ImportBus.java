@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
-import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
@@ -23,10 +22,10 @@ public class ImportBus extends SlimefunItem {
 	
 	private static final int[] border = {0, 1, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 18, 22, 24, 27, 31, 33, 34, 35, 36, 40, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53};
 
-	public ImportBus(Category category, ItemStack item, String name, RecipeType recipeType, ItemStack[] recipe) {
-		super(category, item, name, recipeType, recipe);
+	public ImportBus(Category category, ItemStack item, String id, RecipeType recipeType, ItemStack[] recipe) {
+		super(category, item, id, recipeType, recipe);
 		
-		new BlockMenuPreset(name, ChatColor.translateAlternateColorCodes('&', "&3CT Import Bus")) {
+		new BlockMenuPreset(getID(), ChatColor.translateAlternateColorCodes('&', "&3CT Import Bus")) {
 			
 			@Override
 			public void init() {
@@ -38,76 +37,52 @@ public class ImportBus extends SlimefunItem {
 				try {
 					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getLocationInfo(b.getLocation(), "filter-type") == null || BlockStorage.getLocationInfo(b.getLocation(), "filter-type").equals("whitelist")) {
 						menu.replaceExistingItem(23, new CustomItem(Material.WHITE_WOOL, "&7Type: &rWhitelist", "", "&e> Click to change it to Blacklist"));
-						menu.addMenuClickHandler(23, new MenuClickHandler() {
-
-							@Override
-							public boolean onClick(Player p, int arg1, ItemStack arg2, ClickAction arg3) {
-								BlockStorage.addBlockInfo(b, "filter-type", "blacklist");
-								newInstance(menu, b);
-								return false;
-							}
+						menu.addMenuClickHandler(23, (p, slot, item, action) -> {
+							BlockStorage.addBlockInfo(b, "filter-type", "blacklist");
+							newInstance(menu, b);
+							return false;
 						});
 					}
 					else {
 						menu.replaceExistingItem(23, new CustomItem(Material.BLACK_WOOL, "&7Type: &8Blacklist", "", "&e> Click to change it to Whitelist"));
-						menu.addMenuClickHandler(23, new MenuClickHandler() {
-
-							@Override
-							public boolean onClick(Player p, int arg1, ItemStack arg2, ClickAction arg3) {
-								BlockStorage.addBlockInfo(b, "filter-type", "whitelist");
-								newInstance(menu, b);
-								return false;
-							}
+						menu.addMenuClickHandler(23, (p, slot, item, action) -> {
+							BlockStorage.addBlockInfo(b, "filter-type", "whitelist");
+							newInstance(menu, b);
+							return false;
 						});
 					}
 					
 					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getLocationInfo(b.getLocation(), "filter-durability") == null || BlockStorage.getLocationInfo(b.getLocation(), "filter-durability").equals("false")) {
 						menu.replaceExistingItem(41, new CustomItem(Material.STONE_SWORD, "&7Include Sub-IDs/Durability: &4\u2718", "", "&e> Click to toggle whether the Durability has to match"));
-						menu.addMenuClickHandler(41, new MenuClickHandler() {
-
-							@Override
-							public boolean onClick(Player p, int arg1, ItemStack arg2, ClickAction arg3) {
-								BlockStorage.addBlockInfo(b, "filter-durability", "true");
-								newInstance(menu, b);
-								return false;
-							}
+						menu.addMenuClickHandler(41, (p, slot, item, action) -> {
+							BlockStorage.addBlockInfo(b, "filter-durability", "true");
+							newInstance(menu, b);
+							return false;
 						});
 					}
 					else {
 						menu.replaceExistingItem(41, new CustomItem(Material.GOLDEN_SWORD, "&7Include Sub-IDs/Durability: &2\u2714", "", "&e> Click to toggle whether the Durability has to match"));
-						menu.addMenuClickHandler(41, new MenuClickHandler() {
-
-							@Override
-							public boolean onClick(Player p, int arg1, ItemStack arg2, ClickAction arg3) {
-								BlockStorage.addBlockInfo(b, "filter-durability", "false");
-								newInstance(menu, b);
-								return false;
-							}
+						menu.addMenuClickHandler(41, (p, slot, item, action) -> {
+							BlockStorage.addBlockInfo(b, "filter-durability", "false");
+							newInstance(menu, b);
+							return false;
 						});
 					}
 					
 					if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getLocationInfo(b.getLocation(), "filter-lore") == null || BlockStorage.getLocationInfo(b.getLocation(), "filter-lore").equals("true")) {
 						menu.replaceExistingItem(32, new CustomItem(Material.MAP, "&7Include Lore: &2\u2714", "", "&e> Click to toggle whether the Lore has to match"));
-						menu.addMenuClickHandler(32, new MenuClickHandler() {
-
-							@Override
-							public boolean onClick(Player p, int arg1, ItemStack arg2, ClickAction arg3) {
-								BlockStorage.addBlockInfo(b, "filter-lore", "false");
-								newInstance(menu, b);
-								return false;
-							}
+						menu.addMenuClickHandler(32, (p, slot, item, action) -> {
+							BlockStorage.addBlockInfo(b, "filter-lore", "false");
+							newInstance(menu, b);
+							return false;
 						});
 					}
 					else {
 						menu.replaceExistingItem(32, new CustomItem(Material.MAP, "&7Include Lore: &4\u2718", "", "&e> Click to toggle whether the Lore has to match"));
-						menu.addMenuClickHandler(32, new MenuClickHandler() {
-
-							@Override
-							public boolean onClick(Player p, int arg1, ItemStack arg2, ClickAction arg3) {
-								BlockStorage.addBlockInfo(b, "filter-lore", "true");
-								newInstance(menu, b);
-								return false;
-							}
+						menu.addMenuClickHandler(32, (p, slot, item, action) -> {
+							BlockStorage.addBlockInfo(b, "filter-lore", "true");
+							newInstance(menu, b);
+							return false;
 						});
 					}
 					
@@ -127,7 +102,7 @@ public class ImportBus extends SlimefunItem {
 			}
 		};
 		
-		registerBlockHandler(name, new SlimefunBlockHandler() {
+		registerBlockHandler(getID(), new SlimefunBlockHandler() {
 			
 			@Override
 			public void onPlace(Player p, Block b, SlimefunItem item) {
