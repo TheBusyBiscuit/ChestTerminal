@@ -5,4 +5,4 @@
 /target/
 dependency-reduced-pom.xml
 /.idea/
-*.yml
+*.iml
