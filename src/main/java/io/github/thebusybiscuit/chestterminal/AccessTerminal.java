@@ -125,7 +125,7 @@ public class AccessTerminal extends SlimefunItem {
 			public void tick(Block b, SlimefunItem sf, Config data) {
 				if (!CargoNet.isConnected(b)) {
 					BlockMenu menu = BlockStorage.getInventory(b);
-					for (int slot: CargoNet.terminal_slots) {
+					for (int slot : CargoNet.terminal_slots) {
 						menu.replaceExistingItem(slot, item);
 						menu.addMenuClickHandler(slot, click);
 					}

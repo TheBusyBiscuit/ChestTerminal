@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import me.mrCookieSlime.CSCoreLibPlugin.general.Player.PlayerInventory;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SimpleSlimefunItem;
@@ -48,7 +47,6 @@ public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemInteractio
 					}
 					
 					e.setCancelled(true);
-					PlayerInventory.update(p);
 				}
 				else {
 					openRemoteTerminal(p, stack, lore.get(0), getRange());
@@ -99,7 +97,6 @@ public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemInteractio
 		}
 
 		p.getInventory().setItemInMainHand(ItemEnergy.chargeItem(stack, -0.5F));
-		PlayerInventory.update(p);
 		BlockStorage.getInventory(block).open(p);
 	}
 
