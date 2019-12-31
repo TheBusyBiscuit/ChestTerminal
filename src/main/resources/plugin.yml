@@ -1,8 +1,7 @@
 name: ChestTerminal
 version: ${project.version}
 author: TheBusyBiscuit
-website: http://TheBusyBiscuit.github.io/
-depend: [CS-CoreLib, Slimefun]
+depend: [Slimefun]
 
 api-version: 1.14
 
