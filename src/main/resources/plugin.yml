@@ -1,7 +1,7 @@
 name: ChestTerminal
 version: ${project.version}
 author: TheBusyBiscuit
-depend: [CS-CoreLib, Slimefun]
+depend: [Slimefun]
 
 api-version: 1.14
 
