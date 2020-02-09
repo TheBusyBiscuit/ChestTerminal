@@ -1,6 +1,5 @@
 package io.github.thebusybiscuit.chestterminal;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -9,7 +8,6 @@ import org.bukkit.inventory.ItemStack;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
-import me.mrCookieSlime.CSCoreLibPlugin.general.World.CustomSkull;
 import me.mrCookieSlime.Slimefun.SlimefunPlugin;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
@@ -18,18 +16,20 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.UnregisterReason;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.CargoNet;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
+import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
 
 public class AccessTerminal extends SlimefunItem {
 
-	public AccessTerminal(Category category, ItemStack item, String id, RecipeType recipeType, ItemStack[] recipe) {
-		super(category, item, id, recipeType, recipe);
+	public AccessTerminal(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+		super(category, item, recipeType, recipe);
 
-		new BlockMenuPreset(getID(), ChatColor.translateAlternateColorCodes('&', "&3CT Access Terminal")) {
+		new BlockMenuPreset(getID(), "&3CT Access Terminal") {
 			
 			@Override
 			public void init() {
@@ -38,28 +38,23 @@ public class AccessTerminal extends SlimefunItem {
 
 			@Override
 			public void newInstance(final BlockMenu menu, final Block b) {
-				try {
-					menu.replaceExistingItem(46, new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI1OTliZDk4NjY1OWI4Y2UyYzQ5ODg1MjVjOTRlMTlkZGQzOWZhZDA4YTM4Mjg0YTE5N2YxYjcwNjc1YWNjIn19fQ=="), "&7\u21E6 Previous Page", "", "&c(This may take up to a Second to update)"));
-					menu.addMenuClickHandler(46, (p, slot, item, action) -> {
-						int page = Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "page")) - 1;
-						if (page > 0) {
-							BlockStorage.addBlockInfo(b, "page", String.valueOf(page));
-							newInstance(menu, b);
-						}
-						return false;
-					});
-					
-					menu.replaceExistingItem(50, new CustomItem(CustomSkull.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJmOTEwYzQ3ZGEwNDJlNGFhMjhhZjZjYzgxY2Y0OGFjNmNhZjM3ZGFiMzVmODhkYjk5M2FjY2I5ZGZlNTE2In19fQ=="), "&7Next Page \u21E8", "", "&c(This may take up to a Second to update)"));
-					menu.addMenuClickHandler(50, (p, slot, item, action) -> {
-						int page = Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "page")) + 1;
+				menu.replaceExistingItem(46, new CustomItem(SkullItem.fromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI1OTliZDk4NjY1OWI4Y2UyYzQ5ODg1MjVjOTRlMTlkZGQzOWZhZDA4YTM4Mjg0YTE5N2YxYjcwNjc1YWNjIn19fQ=="), "&7\u21E6 Previous Page", "", "&c(This may take up to a Second to update)"));
+				menu.addMenuClickHandler(46, (p, slot, item, action) -> {
+					int page = Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "page")) - 1;
+					if (page > 0) {
 						BlockStorage.addBlockInfo(b, "page", String.valueOf(page));
 						newInstance(menu, b);
-						return false;
-					});
-					
-				} catch(Exception x) {
-					x.printStackTrace();
-				}
+					}
+					return false;
+				});
+				
+				menu.replaceExistingItem(50, new CustomItem(SkullItem.fromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJmOTEwYzQ3ZGEwNDJlNGFhMjhhZjZjYzgxY2Y0OGFjNmNhZjM3ZGFiMzVmODhkYjk5M2FjY2I5ZGZlNTE2In19fQ=="), "&7Next Page \u21E8", "", "&c(This may take up to a Second to update)"));
+				menu.addMenuClickHandler(50, (p, slot, item, action) -> {
+					int page = Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "page")) + 1;
+					BlockStorage.addBlockInfo(b, "page", String.valueOf(page));
+					newInstance(menu, b);
+					return false;
+				});
 			}
 
 			@Override

@@ -13,12 +13,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SimpleSlimefunItem;
-import me.mrCookieSlime.Slimefun.Objects.handlers.ItemInteractionHandler;
+import me.mrCookieSlime.Slimefun.Objects.handlers.ItemUseHandler;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.energy.ItemEnergy;
+import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
 
-public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemInteractionHandler> {
+public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemUseHandler> {
 
 	public WirelessTerminal(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, recipeType, recipe);
@@ -27,34 +28,33 @@ public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemInteractio
 	public abstract int getRange();
 
 	@Override
-	public ItemInteractionHandler getItemHandler() {
-		return (e, p, stack) -> {
-			if (isItem(stack)) {
-				ItemMeta im = stack.getItemMeta();
-				List<String> lore = im.getLore();
-				if (lore.isEmpty()) return true;
+	public ItemUseHandler getItemHandler() {
+		return e -> {
+			ItemStack stack = e.getItem();
+			ItemMeta im = stack.getItemMeta();
+			List<String> lore = im.getLore();
+			if (lore.isEmpty()) return;
+			
+			if (e.getClickedBlock().isPresent()) {
+				Player p = e.getPlayer();
+				Block b = e.getClickedBlock().get();
 				
-				if (e.getClickedBlock() != null) {
-					if (BlockStorage.check(e.getClickedBlock(), "CHEST_TERMINAL")) {
-						lore.set(0, ChatColor.translateAlternateColorCodes('&', "&8\u21E8 &7Linked to: &8") + e.getClickedBlock().getWorld().getName() + " X: " + e.getClickedBlock().getX() + " Y: " + e.getClickedBlock().getY() + " Z: " + e.getClickedBlock().getZ());
-						p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bLink established!"));
-						im.setLore(lore);
-						stack.setItemMeta(im);
-						p.getInventory().setItemInMainHand(stack);
-					}
-					else {
-						openRemoteTerminal(p, stack, lore.get(0), getRange());
-					}
-					
-					e.setCancelled(true);
+				if (BlockStorage.check(b, "CHEST_TERMINAL")) {
+					lore.set(0, ChatColors.color("&8\u21E8 &7Linked to: &8") + b.getWorld().getName() + " X: " + b.getX() + " Y: " + b.getY() + " Z: " + b.getZ());
+					p.sendMessage(ChatColors.color("&bLink established!"));
+					im.setLore(lore);
+					stack.setItemMeta(im);
+					p.getInventory().setItemInMainHand(stack);
 				}
 				else {
 					openRemoteTerminal(p, stack, lore.get(0), getRange());
 				}
 				
-				return true;
+				e.cancel();
 			}
-			else return false;
+			else {
+				openRemoteTerminal(e.getPlayer(), stack, lore.get(0), getRange());
+			}
 		};
 	}
 	
