@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
@@ -18,7 +19,7 @@ import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.Updater;
 
-public class ChestTerminal extends JavaPlugin implements Listener {
+public class ChestTerminal extends JavaPlugin implements Listener, SlimefunAddon {
 	
 	@Override
 	public void onEnable() {
@@ -53,23 +54,23 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 		
 		new SlimefunItem(category, milkyQuartz, new RecipeType(SlimefunItems.GEO_MINER), 
 		new ItemStack[0])
-		.register();
+		.register(this);
 		
 		new SlimefunItem(category, ctPanel, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {milkyQuartz, SlimefunItems.BLISTERING_INGOT_3, milkyQuartz, SlimefunItems.REDSTONE_ALLOY, SlimefunItems.POWER_CRYSTAL, SlimefunItems.REDSTONE_ALLOY, milkyQuartz, SlimefunItems.BLISTERING_INGOT_3, milkyQuartz})
-		.register();
+		.register(this);
 		
 		new AccessTerminal(category, chestTerminal, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {milkyQuartz, SlimefunItems.GPS_TRANSMITTER_3, milkyQuartz, SlimefunItems.POWER_CRYSTAL, ctPanel, SlimefunItems.POWER_CRYSTAL, SlimefunItems.PLASTIC_SHEET, SlimefunItems.ENERGY_REGULATOR, SlimefunItems.PLASTIC_SHEET})
-		.register();
+		.register(this);
 		
 		new ImportBus(category, importBus, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {SlimefunItems.REDSTONE_ALLOY, SlimefunItems.POWER_CRYSTAL, SlimefunItems.REDSTONE_ALLOY, SlimefunItems.HARDENED_METAL_INGOT, SlimefunItems.CARGO_INPUT, SlimefunItems.HARDENED_METAL_INGOT, SlimefunItems.PLASTIC_SHEET, SlimefunItems.CARGO_MOTOR, SlimefunItems.PLASTIC_SHEET})
-		.register();
+		.register(this);
 		
 		new ExportBus(category, exportBus, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {null, SlimefunItems.DAMASCUS_STEEL_INGOT, null, SlimefunItems.ALUMINUM_BRONZE_INGOT, importBus, SlimefunItems.ALUMINUM_BRONZE_INGOT, SlimefunItems.PLASTIC_SHEET, SlimefunItems.GOLD_10K, SlimefunItems.PLASTIC_SHEET})
-		.register();
+		.register(this);
 		
 		new WirelessTerminal(category, wirelessTerminal16, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {milkyQuartz, SlimefunItems.GPS_TRANSMITTER, milkyQuartz, SlimefunItems.COBALT_INGOT, chestTerminal, SlimefunItems.COBALT_INGOT, SlimefunItems.BATTERY, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.BATTERY}) {
@@ -79,7 +80,7 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 				return 16;
 			}
 			
-		}.register();
+		}.register(this);
 		
 		new WirelessTerminal(category, wirelessTerminal64, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {milkyQuartz, SlimefunItems.GPS_TRANSMITTER, milkyQuartz, SlimefunItems.COBALT_INGOT, wirelessTerminal16, SlimefunItems.COBALT_INGOT, SlimefunItems.BATTERY, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.BATTERY}) {
@@ -89,7 +90,7 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 				return 64;
 			}
 			
-		}.register();
+		}.register(this);
 		
 		new WirelessTerminal(category, wirelessTerminal128, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {milkyQuartz, SlimefunItems.GPS_TRANSMITTER_2, milkyQuartz, SlimefunItems.COBALT_INGOT, wirelessTerminal64, SlimefunItems.COBALT_INGOT, SlimefunItems.BATTERY, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.BATTERY}) {
@@ -99,7 +100,7 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 				return 128;
 			}
 			
-		}.register();
+		}.register(this);
 		
 		new WirelessTerminal(category, wirelessTerminalTransdimensional, RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {milkyQuartz, SlimefunItems.GPS_TRANSMITTER_4, milkyQuartz, SlimefunItems.COBALT_INGOT, wirelessTerminal128, SlimefunItems.COBALT_INGOT, SlimefunItems.BATTERY, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.BATTERY}) {
@@ -109,9 +110,19 @@ public class ChestTerminal extends JavaPlugin implements Listener {
 				return -1;
 			}
 			
-		}.register();
+		}.register(this);
 		
 		new MilkyQuartz(this, milkyQuartz).register();
 		CargoNet.extraChannels = true;
+	}
+
+	@Override
+	public JavaPlugin getJavaPlugin() {
+		return this;
+	}
+
+	@Override
+	public String getBugTrackerURL() {
+		return "https://github.com/TheBusyBiscuit/ChestTerminal/issues";
 	}
 }

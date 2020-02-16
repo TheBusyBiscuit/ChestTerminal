@@ -12,6 +12,7 @@ import me.mrCookieSlime.Slimefun.SlimefunPlugin;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunBlockHandler;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SimpleSlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.UnregisterReason;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
@@ -24,7 +25,7 @@ import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
 
-public class AccessTerminal extends SlimefunItem {
+public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
 
 	public AccessTerminal(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
 		super(category, item, recipeType, recipe);
@@ -37,7 +38,7 @@ public class AccessTerminal extends SlimefunItem {
 			}
 
 			@Override
-			public void newInstance(final BlockMenu menu, final Block b) {
+			public void newInstance(BlockMenu menu, Block b) {
 				menu.replaceExistingItem(46, new CustomItem(SkullItem.fromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI1OTliZDk4NjY1OWI4Y2UyYzQ5ODg1MjVjOTRlMTlkZGQzOWZhZDA4YTM4Mjg0YTE5N2YxYjcwNjc1YWNjIn19fQ=="), "&7\u21E6 Previous Page", "", "&c(This may take up to a Second to update)"));
 				menu.addMenuClickHandler(46, (p, slot, item, action) -> {
 					int page = Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "page")) - 1;
@@ -108,10 +109,10 @@ public class AccessTerminal extends SlimefunItem {
 		preset.addItem(52, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "), click);
 		preset.addItem(53, new CustomItem(Material.ORANGE_STAINED_GLASS_PANE, " "), click);
 	}
-	
+
 	@Override
-	public void register(boolean slimefun) {
-		addItemHandler(new BlockTicker() {
+	public BlockTicker getItemHandler() {
+		return new BlockTicker() {
 			
 			private final ItemStack item = new CustomItem(Material.BARRIER, "&4No Cargo Net connected!");
 			private final MenuClickHandler click = (p, slot, stack, action) -> false;
@@ -132,9 +133,7 @@ public class AccessTerminal extends SlimefunItem {
 			public boolean isSynchronized() {
 				return true;
 			}
-		});
-
-		super.register(slimefun);
+		};
 	}
 
 }
