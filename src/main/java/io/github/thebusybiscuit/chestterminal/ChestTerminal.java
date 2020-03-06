@@ -13,7 +13,6 @@ import me.mrCookieSlime.Slimefun.Lists.SlimefunItems;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
-import me.mrCookieSlime.Slimefun.api.item_transport.CargoNet;
 import me.mrCookieSlime.Slimefun.bstats.bukkit.Metrics;
 import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
@@ -113,7 +112,6 @@ public class ChestTerminal extends JavaPlugin implements Listener, SlimefunAddon
 		}.register(this);
 		
 		new MilkyQuartz(this, milkyQuartz).register();
-		CargoNet.extraChannels = true;
 	}
 
 	@Override
