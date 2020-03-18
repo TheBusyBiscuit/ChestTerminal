@@ -121,7 +121,7 @@ public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
 
             @Override
             public void tick(Block b, SlimefunItem sf, Config data) {
-                if (!CargoNet.isConnected(b)) {
+                if (CargoNet.getNetworkFromLocation(b.getLocation()) == null) {
                     BlockMenu menu = BlockStorage.getInventory(b);
 
                     for (int slot : terminalSlots) {
