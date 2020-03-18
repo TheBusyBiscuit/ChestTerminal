@@ -26,6 +26,8 @@ import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
 
 public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
+    
+    private final int[] terminalSlots = { 0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 18, 19, 20, 21, 22, 23, 24, 27, 28, 29, 30, 31, 32, 33, 36, 37, 38, 39, 40, 41, 42 };
 
     public AccessTerminal(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(category, item, recipeType, recipe);
@@ -122,7 +124,7 @@ public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
                 if (!CargoNet.isConnected(b)) {
                     BlockMenu menu = BlockStorage.getInventory(b);
 
-                    for (int slot : CargoNet.TERMINAL_SLOTS) {
+                    for (int slot : terminalSlots) {
                         menu.replaceExistingItem(slot, item);
                         menu.addMenuClickHandler(slot, click);
                     }
