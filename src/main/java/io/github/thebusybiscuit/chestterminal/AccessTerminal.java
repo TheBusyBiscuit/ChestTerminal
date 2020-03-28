@@ -5,6 +5,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.thebusybiscuit.slimefun4.core.networks.cargo.CargoNet;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
@@ -20,7 +21,6 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
-import me.mrCookieSlime.Slimefun.api.item_transport.CargoNet;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
@@ -82,8 +82,13 @@ public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
             public boolean onBreak(Player p, Block b, SlimefunItem item, UnregisterReason reason) {
                 BlockMenu inv = BlockStorage.getInventory(b);
                 if (inv != null) {
-                    if (inv.getItemInSlot(17) != null) b.getWorld().dropItemNaturally(b.getLocation(), inv.getItemInSlot(17));
-                    if (inv.getItemInSlot(44) != null) b.getWorld().dropItemNaturally(b.getLocation(), inv.getItemInSlot(44));
+                    if (inv.getItemInSlot(17) != null) {
+                        b.getWorld().dropItemNaturally(b.getLocation(), inv.getItemInSlot(17));
+                    }
+                    
+                    if (inv.getItemInSlot(44) != null) {
+                        b.getWorld().dropItemNaturally(b.getLocation(), inv.getItemInSlot(44));
+                    }
                 }
                 return true;
             }

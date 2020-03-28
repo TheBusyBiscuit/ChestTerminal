@@ -51,7 +51,7 @@ public class ChestTerminal extends JavaPlugin implements Listener, SlimefunAddon
 		
 		Category category = new Category(new NamespacedKey(this, "chest_terminal"), new CustomItem(chestTerminal, "&5Chest Terminal", "", "&a> Click to open"));
 		
-		new SlimefunItem(category, milkyQuartz, new RecipeType(SlimefunItems.GEO_MINER), 
+		new SlimefunItem(category, milkyQuartz, RecipeType.GEO_MINER, 
 		new ItemStack[0])
 		.register(this);
 		
