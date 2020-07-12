@@ -3,23 +3,22 @@ package io.github.thebusybiscuit.chestterminal;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import io.github.thebusybiscuit.slimefun4.core.attributes.Rechargeable;
+import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
+import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SimpleSlimefunItem;
-import me.mrCookieSlime.Slimefun.Objects.handlers.ItemUseHandler;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
-import me.mrCookieSlime.Slimefun.api.energy.ItemEnergy;
 import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
 
-public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemUseHandler> {
+public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemUseHandler> implements Rechargeable {
 
     public WirelessTerminal(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(category, item, recipeType, recipe);
@@ -59,15 +58,15 @@ public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemUseHandler
     }
 
     private void openRemoteTerminal(Player p, ItemStack stack, String loc, int range) {
-        if (loc.equals(ChatColor.translateAlternateColorCodes('&', "&8\u21E8 &7Linked to: &cNowhere"))) {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Failed &c- This Device has not been linked to a Chest Terminal!"));
+        if (loc.equals(ChatColors.color("&8\u21E8 &7Linked to: &cNowhere"))) {
+            p.sendMessage(ChatColors.color("&4Failed &c- This Device has not been linked to a Chest Terminal!"));
             return;
         }
 
-        loc = loc.replace(ChatColor.translateAlternateColorCodes('&', "&8\u21E8 &7Linked to: &8"), "");
+        loc = loc.replace(ChatColors.color("&8\u21E8 &7Linked to: &8"), "");
         World world = Bukkit.getWorld(loc.split(" X: ")[0]);
         if (world == null) {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Failed &c- The Chest Terminal that this Device has been linked to no longer exists!"));
+            p.sendMessage(ChatColors.color("&4Failed &c- The Chest Terminal that this Device has been linked to no longer exists!"));
             return;
         }
         int x = Integer.parseInt(loc.split(" X: ")[1].split(" Y: ")[0]);
@@ -77,26 +76,26 @@ public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemUseHandler
         Block block = world.getBlockAt(x, y, z);
 
         if (!BlockStorage.check(block, "CHEST_TERMINAL")) {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Failed &c- The Chest Terminal that this Device has been linked to no longer exists!"));
+            p.sendMessage(ChatColors.color("&4Failed &c- The Chest Terminal that this Device has been linked to no longer exists!"));
             return;
         }
 
-        float charge = ItemEnergy.getStoredEnergy(stack);
+        float charge = getItemCharge(stack);
         if (charge < 0.5F) {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Failed &c- You are out of Energy!"));
+            p.sendMessage(ChatColors.color("&4Failed &c- You are out of Energy!"));
             return;
         }
 
         if (range > 0 && !world.getUID().equals(p.getWorld().getUID())) {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Failed &c- You are out of Range!"));
+            p.sendMessage(ChatColors.color("&4Failed &c- You are out of Range!"));
             return;
         }
         if (range > 0 && block.getLocation().distance(p.getLocation()) > range) {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4Failed &c- You are out of Range!"));
+            p.sendMessage(ChatColors.color("&4Failed &c- You are out of Range!"));
             return;
         }
-
-        p.getInventory().setItemInMainHand(ItemEnergy.chargeItem(stack, -0.5F));
+        
+        removeItemCharge(stack, -0.5F);
         BlockStorage.getInventory(block).open(p);
     }
 

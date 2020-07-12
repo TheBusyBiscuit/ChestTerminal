@@ -78,6 +78,11 @@ public class ChestTerminal extends JavaPlugin implements Listener, SlimefunAddon
 			public int getRange() {
 				return 16;
 			}
+
+            @Override
+			public float getMaxItemCharge(ItemStack item) {
+			    return 10;
+			}
 			
 		}.register(this);
 		
@@ -88,6 +93,11 @@ public class ChestTerminal extends JavaPlugin implements Listener, SlimefunAddon
 			public int getRange() {
 				return 64;
 			}
+
+            @Override
+            public float getMaxItemCharge(ItemStack item) {
+                return 25;
+            }
 			
 		}.register(this);
 		
@@ -98,6 +108,11 @@ public class ChestTerminal extends JavaPlugin implements Listener, SlimefunAddon
 			public int getRange() {
 				return 128;
 			}
+
+            @Override
+            public float getMaxItemCharge(ItemStack item) {
+                return 50;
+            }
 			
 		}.register(this);
 		
@@ -108,6 +123,11 @@ public class ChestTerminal extends JavaPlugin implements Listener, SlimefunAddon
 			public int getRange() {
 				return -1;
 			}
+
+            @Override
+            public float getMaxItemCharge(ItemStack item) {
+                return 50;
+            }
 			
 		}.register(this);
 		

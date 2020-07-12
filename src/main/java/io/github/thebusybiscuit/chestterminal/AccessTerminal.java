@@ -6,14 +6,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.core.networks.cargo.CargoNet;
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
+import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
+import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
-import me.mrCookieSlime.Slimefun.SlimefunPlugin;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunBlockHandler;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SimpleSlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.UnregisterReason;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
@@ -23,7 +24,6 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
-import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
 
 public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
     
@@ -41,7 +41,7 @@ public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
 
             @Override
             public void newInstance(BlockMenu menu, Block b) {
-                menu.replaceExistingItem(46, new CustomItem(SkullItem.fromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI1OTliZDk4NjY1OWI4Y2UyYzQ5ODg1MjVjOTRlMTlkZGQzOWZhZDA4YTM4Mjg0YTE5N2YxYjcwNjc1YWNjIn19fQ=="), "&7\u21E6 Previous Page", "", "&c(This may take up to a Second to update)"));
+                menu.replaceExistingItem(46, new CustomItem(SlimefunUtils.getCustomHead("f2599bd986659b8ce2c4988525c94e19ddd39fad08a38284a197f1b70675acc"), "&7\u21E6 Previous Page", "", "&c(This may take up to a Second to update)"));
                 menu.addMenuClickHandler(46, (p, slot, item, action) -> {
                     int page = Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "page")) - 1;
                     if (page > 0) {
@@ -51,7 +51,7 @@ public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
                     return false;
                 });
 
-                menu.replaceExistingItem(50, new CustomItem(SkullItem.fromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJmOTEwYzQ3ZGEwNDJlNGFhMjhhZjZjYzgxY2Y0OGFjNmNhZjM3ZGFiMzVmODhkYjk5M2FjY2I5ZGZlNTE2In19fQ=="), "&7Next Page \u21E8", "", "&c(This may take up to a Second to update)"));
+                menu.replaceExistingItem(50, new CustomItem(SlimefunUtils.getCustomHead("c2f910c47da042e4aa28af6cc81cf48ac6caf37dab35f88db993accb9dfe516"), "&7Next Page \u21E8", "", "&c(This may take up to a Second to update)"));
                 menu.addMenuClickHandler(50, (p, slot, item, action) -> {
                     int page = Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "page")) + 1;
                     BlockStorage.addBlockInfo(b, "page", String.valueOf(page));
@@ -99,9 +99,11 @@ public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
         MenuClickHandler click = (p, slot, item, action) -> false;
 
         preset.addItem(45, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), click);
+        preset.addItem(46, new CustomItem(Material.RED_STAINED_GLASS_PANE, "This will update shortly"));
         preset.addItem(47, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), click);
         preset.addItem(48, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), click);
         preset.addItem(49, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), click);
+        preset.addItem(50, new CustomItem(Material.RED_STAINED_GLASS_PANE, "This will update shortly"));
         preset.addItem(51, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), click);
 
         preset.addItem(7, new CustomItem(Material.CYAN_STAINED_GLASS_PANE, " "), click);
