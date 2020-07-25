@@ -32,13 +32,16 @@ public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemUseHandler
             ItemStack stack = e.getItem();
             ItemMeta im = stack.getItemMeta();
             List<String> lore = im.getLore();
-            if (lore.isEmpty()) return;
 
-            if (e.getClickedBlock().isPresent()) {
+            if (lore.isEmpty()) {
+                return;
+            }
+
+            if (e.getClickedBlock().isPresent() && e.getSlimefunBlock().isPresent()) {
                 Player p = e.getPlayer();
                 Block b = e.getClickedBlock().get();
 
-                if (BlockStorage.check(b, "CHEST_TERMINAL")) {
+                if (e.getSlimefunBlock().get() instanceof AccessTerminal) {
                     lore.set(0, ChatColors.color("&8\u21E8 &7Linked to: &8") + b.getWorld().getName() + " X: " + b.getX() + " Y: " + b.getY() + " Z: " + b.getZ());
                     p.sendMessage(ChatColors.color("&bLink established!"));
                     im.setLore(lore);
@@ -65,10 +68,12 @@ public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemUseHandler
 
         loc = loc.replace(ChatColors.color("&8\u21E8 &7Linked to: &8"), "");
         World world = Bukkit.getWorld(loc.split(" X: ")[0]);
+
         if (world == null) {
             p.sendMessage(ChatColors.color("&4Failed &c- The Chest Terminal that this Device has been linked to no longer exists!"));
             return;
         }
+
         int x = Integer.parseInt(loc.split(" X: ")[1].split(" Y: ")[0]);
         int y = Integer.parseInt(loc.split(" Y: ")[1].split(" Z: ")[0]);
         int z = Integer.parseInt(loc.split(" Z: ")[1]);
@@ -94,8 +99,8 @@ public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemUseHandler
             p.sendMessage(ChatColors.color("&4Failed &c- You are out of Range!"));
             return;
         }
-        
-        removeItemCharge(stack, -0.5F);
+
+        removeItemCharge(stack, 0.5F);
         BlockStorage.getInventory(block).open(p);
     }
 
