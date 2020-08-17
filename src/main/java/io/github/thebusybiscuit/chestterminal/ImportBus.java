@@ -35,7 +35,7 @@ public class ImportBus extends SlimefunItem {
             @Override
             public void newInstance(BlockMenu menu, Block b) {
                 if (!BlockStorage.hasBlockInfo(b) || BlockStorage.getLocationInfo(b.getLocation(), "filter-type") == null || BlockStorage.getLocationInfo(b.getLocation(), "filter-type").equals("whitelist")) {
-                    menu.replaceExistingItem(23, new CustomItem(Material.WHITE_WOOL, "&7Type: &rWhitelist", "", "&e> Click to change it to Blacklist"));
+                    menu.replaceExistingItem(23, new CustomItem(Material.WHITE_WOOL, "&7Type: &fWhitelist", "", "&e> Click to change it to Blacklist"));
                     menu.addMenuClickHandler(23, (p, slot, item, action) -> {
                         BlockStorage.addBlockInfo(b, "filter-type", "blacklist");
                         newInstance(menu, b);
