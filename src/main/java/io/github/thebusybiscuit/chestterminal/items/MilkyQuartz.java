@@ -1,4 +1,4 @@
-package io.github.thebusybiscuit.chestterminal;
+package io.github.thebusybiscuit.chestterminal.items;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -7,6 +7,7 @@ import org.bukkit.World.Environment;
 import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.thebusybiscuit.chestterminal.ChestTerminal;
 import io.github.thebusybiscuit.slimefun4.api.geo.GEOResource;
 
 public class MilkyQuartz implements GEOResource {

@@ -1,4 +1,4 @@
-package io.github.thebusybiscuit.chestterminal;
+package io.github.thebusybiscuit.chestterminal.items;
 
 import java.util.List;
 
