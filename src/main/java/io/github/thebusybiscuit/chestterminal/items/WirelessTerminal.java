@@ -29,6 +29,7 @@ public abstract class WirelessTerminal extends SimpleSlimefunItem<ItemUseHandler
     @Override
     public ItemUseHandler getItemHandler() {
         return e -> {
+            e.getInteractEvent().setCancelled(true);
             ItemStack stack = e.getItem();
             ItemMeta im = stack.getItemMeta();
             List<String> lore = im.getLore();
