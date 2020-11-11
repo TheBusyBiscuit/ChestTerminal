@@ -5,6 +5,8 @@ You need to install Slimefun4 in order for this plugin to work.
 ChestTerminal is a Slimefun4 Addon that is heavily inspired by the famous mod [Applied Energistics](https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2).
 It adds a Chest Terminal that you can hook up to a Cargo System to access all your items that are accessible through Cargo Nodes on the CT-Channel.
 
+**Warning**: ChestTerminal can be very heavy on performance. This addon can cause quite a bit of lag, so make sure that you are aware of this when installing.
+
 [Read more...](https://github.com/TheBusyBiscuit/Slimefun4/wiki/ChestTerminal)
 
 ## Download ChestTerminal
