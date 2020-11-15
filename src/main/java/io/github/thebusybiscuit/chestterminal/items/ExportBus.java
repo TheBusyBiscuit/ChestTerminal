@@ -3,15 +3,15 @@ package io.github.thebusybiscuit.chestterminal.items;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunBlockHandler;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.UnregisterReason;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
@@ -33,7 +33,8 @@ public class ExportBus extends SlimefunItem {
 
             @Override
             public boolean canOpen(Block b, Player p) {
-                return BlockStorage.getLocationInfo(b.getLocation(), "owner").equals(p.getUniqueId().toString()) || p.hasPermission("slimefun.cargo.bypass");
+                String owner = BlockStorage.getLocationInfo(b.getLocation(), "owner");
+                return (owner != null && owner.equals(p.getUniqueId().toString())) || p.hasPermission("slimefun.cargo.bypass");
             }
 
             @Override
@@ -42,23 +43,21 @@ public class ExportBus extends SlimefunItem {
             }
         };
 
-        registerBlockHandler(getID(), new SlimefunBlockHandler() {
+        registerBlockHandler(getID(), (p, b, tool, reason) -> {
+            BlockStorage.getInventory(b).dropItems(b.getLocation(), getInputSlots());
+            return true;
+        });
+
+        addItemHandler(new BlockPlaceHandler(false) {
 
             @Override
-            public void onPlace(Player p, Block b, SlimefunItem item) {
-                BlockStorage.addBlockInfo(b, "owner", p.getUniqueId().toString());
+            public void onPlayerPlace(BlockPlaceEvent e) {
+                Block b = e.getBlock();
+                BlockStorage.addBlockInfo(b, "owner", e.getPlayer().getUniqueId().toString());
                 BlockStorage.addBlockInfo(b, "index", "0");
                 BlockStorage.addBlockInfo(b, "filter-type", "whitelist");
                 BlockStorage.addBlockInfo(b, "filter-lore", "true");
                 BlockStorage.addBlockInfo(b, "filter-durability", "true");
-            }
-
-            @Override
-            public boolean onBreak(Player p, Block b, SlimefunItem item, UnregisterReason reason) {
-                for (int slot : getInputSlots()) {
-                    if (BlockStorage.getInventory(b).getItemInSlot(slot) != null) b.getWorld().dropItemNaturally(b.getLocation(), BlockStorage.getInventory(b).getItemInSlot(slot));
-                }
-                return true;
             }
         });
     }
