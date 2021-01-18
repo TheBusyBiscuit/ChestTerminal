@@ -8,7 +8,6 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
-import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
@@ -17,6 +16,7 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
+import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 
 public class ImportBus extends SlimefunItem {
 
@@ -25,7 +25,7 @@ public class ImportBus extends SlimefunItem {
     public ImportBus(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(category, item, recipeType, recipe);
 
-        new BlockMenuPreset(getID(), "&3CT Import Bus") {
+        new BlockMenuPreset(getId(), "&3CT Import Bus") {
 
             @Override
             public void init() {
@@ -95,7 +95,7 @@ public class ImportBus extends SlimefunItem {
             }
         };
 
-        registerBlockHandler(getID(), (p, b, tool, reason) -> {
+        registerBlockHandler(getId(), (p, b, tool, reason) -> {
             BlockStorage.getInventory(b).dropItems(b.getLocation(), getInputSlots());
             return true;
         });

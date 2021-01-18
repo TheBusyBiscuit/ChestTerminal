@@ -14,7 +14,6 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunIte
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.MenuClickHandler;
-import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
@@ -24,6 +23,7 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
+import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 
 public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
@@ -33,7 +33,7 @@ public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
     public AccessTerminal(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(category, item, recipeType, recipe);
 
-        new BlockMenuPreset(getID(), "&3CT Access Terminal") {
+        new BlockMenuPreset(getId(), "&3CT Access Terminal") {
 
             @Override
             public void init() {
@@ -68,7 +68,7 @@ public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
 
             @Override
             public boolean canOpen(Block b, Player p) {
-                return SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(), ProtectableAction.ACCESS_INVENTORIES);
+                return SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(), ProtectableAction.INTERACT_BLOCK);
             }
 
             @Override
@@ -77,7 +77,7 @@ public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
             }
         };
 
-        registerBlockHandler(getID(), (p, b, tool, reason) -> {
+        registerBlockHandler(getId(), (p, b, tool, reason) -> {
             BlockMenu inv = BlockStorage.getInventory(b);
 
             if (inv != null) {
