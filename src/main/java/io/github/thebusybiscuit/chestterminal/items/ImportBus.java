@@ -95,10 +95,7 @@ public class ImportBus extends SlimefunItem {
             }
         };
 
-        registerBlockHandler(getId(), (p, b, tool, reason) -> {
-            BlockStorage.getInventory(b).dropItems(b.getLocation(), getInputSlots());
-            return true;
-        });
+        addItemHandler(new CTBlockBreakHandler(getInputSlots()));
 
         addItemHandler(new BlockPlaceHandler(false) {
 

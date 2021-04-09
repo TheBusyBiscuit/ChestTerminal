@@ -77,15 +77,7 @@ public class AccessTerminal extends SimpleSlimefunItem<BlockTicker> {
             }
         };
 
-        registerBlockHandler(getId(), (p, b, tool, reason) -> {
-            BlockMenu inv = BlockStorage.getInventory(b);
-
-            if (inv != null) {
-                inv.dropItems(b.getLocation(), 17, 44);
-            }
-
-            return true;
-        });
+        addItemHandler(new CTBlockBreakHandler(new int[] { 17, 44 }));
 
         addItemHandler(new BlockPlaceHandler(true) {
 
