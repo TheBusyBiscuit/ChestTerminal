@@ -94,20 +94,16 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.github.TheBusyBiscuit</groupId>
-            <artifactId>CS-CoreLib</artifactId>
-            <version>6e17183656</version>
+            <groupId>io.github.baked-libs</groupId>
+            <artifactId>dough-api</artifactId>
+            <version>1.0.2</version>
             <scope>provided</scope>
             <exclusions>
-                <exclusion>
-                    <groupId>io.github.thebusybiscuit</groupId>
-                    <artifactId>cscorelib2</artifactId>
-                </exclusion>
                 <exclusion>
                     <groupId>org.bstats</groupId>
                     <artifactId>bstats-bukkit</artifactId>
@@ -118,14 +114,8 @@
         <dependency>
             <groupId>com.github.TheBusyBiscuit</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>RC-21</version>
+            <version>RC-27</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.github.thebusybiscuit</groupId>
-                    <artifactId>cscorelib2</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
